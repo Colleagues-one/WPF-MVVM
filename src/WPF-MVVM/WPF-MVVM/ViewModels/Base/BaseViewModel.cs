@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace WPF_MVVM.ViewModels.Base
 {
@@ -12,16 +8,16 @@ namespace WPF_MVVM.ViewModels.Base
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string? PropertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string? PropertyName = null)
+        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if(Equals(field, value)) return false;
             field = value;
-            OnPropertyChanged(PropertyName); return true;
+            OnPropertyChanged(propertyName); return true;
         }
 
         ~BaseViewModel() => Dispose(false); 
