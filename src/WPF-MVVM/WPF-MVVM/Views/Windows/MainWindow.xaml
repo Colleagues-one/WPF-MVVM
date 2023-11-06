@@ -12,11 +12,28 @@
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
-        <TextBox HorizontalAlignment="Left"
-                 Margin="43,51,0,0"
-                 TextWrapping="Wrap"
-                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
-                 VerticalAlignment="Top" Width="272"/>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Name="MenuFile" Header="File">
+                <MenuItem Name="MenuFileExit" Header="Exit"></MenuItem>
+            </MenuItem>
+            <MenuItem Name="MenuEdit" Header="Edit"></MenuItem>
+            <MenuItem Name="MenuHelp" Header="Help">
+                <MenuItem Name="MenuHelpAbout" Header="About"></MenuItem>
+            </MenuItem> 
+        </Menu>
+        <StatusBar Name="StatusBar"  DockPanel.Dock="Bottom">
+            <StatusBarItem Name="StatusBarTextBlock">
+                <TextBlock>3829382</TextBlock></StatusBarItem>
+            <StatusBarItem HorizontalContentAlignment="Right">
+                <ProgressBar  Width="150" Height="15" Value="30"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <TabControl>
+            <TabItem Name="TabItem1" Header="Item1"></TabItem>
+            <TabItem Name="TabItem2" Header="Item2"></TabItem>
+        </TabControl>
+
+    </DockPanel>
 </Window>
