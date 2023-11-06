@@ -1,4 +1,7 @@
-﻿using WPF_MVVM.ViewModels.Base;
+﻿using System.Windows;
+using System.Windows.Input;
+using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
@@ -26,9 +29,34 @@ namespace WPF_MVVM.ViewModels
         #region Status Статус окна
         private string _status = "Status";
         /// <summary> статус программы </summary>
-        public string Status { get => _status; set => Set(ref _status, value); } 
+        public string Status { get => _status; set => Set(ref _status, value); }
+        #endregion
+
+        #region Commands 
+
+        #region CloseAppCommand
+        public ICommand CloseApplicationCommand { get; }
+
+        private bool CanCloseApplicationCommandExecute(object sender) => true;
+
+        private void OnCloseApplicationCommandExecuted(object sender)
+        {
+            Application.Current.Shutdown();
+        } 
+        #endregion
 
         #endregion
-        
+
+
+        public MainWindowViewModel()
+        {
+            #region Commands
+
+            CloseApplicationCommand =
+                new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+
+            #endregion
+        }
     }
 }
