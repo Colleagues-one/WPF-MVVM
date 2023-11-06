@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:WPF_MVVM.Infrastructure.Commands"
         mc:Ignorable="d"     
         xmlns:local="clr-namespace:WPF_MVVM" 
         xmlns:viewModel="clr-namespace:WPF_MVVM.ViewModels"
@@ -15,7 +16,10 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Name="MenuFile" Header="File">
-                <MenuItem Name="MenuFileExit" Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>
+                <MenuItem Name="MenuFileExit" Header="Exit"><MenuItem.Command>
+                    <cmd:CloseApplicationCommand/>
+                </MenuItem.Command></MenuItem>
+                <!--<MenuItem Name="MenuFileExit" Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>-->
             </MenuItem>
             <MenuItem Name="MenuEdit" Header="Edit"></MenuItem>
             <MenuItem Name="MenuHelp" Header="Help">
