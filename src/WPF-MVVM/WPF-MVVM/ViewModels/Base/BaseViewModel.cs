@@ -29,12 +29,12 @@ namespace WPF_MVVM.ViewModels.Base
         public void Dispose() => Dispose(true);
         
 
-        private bool disposed;
+        private bool _disposed;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposing || disposed) return;
-            disposed = true;
+            if (!disposing || _disposed) return;
+            _disposed = true;
             // освобождение управляемых ресурсов
         }
     }
