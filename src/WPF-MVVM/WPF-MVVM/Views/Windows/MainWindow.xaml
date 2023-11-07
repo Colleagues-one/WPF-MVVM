@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:WPF_MVVM.Infrastructure.Commands"
         xmlns:font="http://schemas.fontawesome.com/icons/"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"     
         xmlns:local="clr-namespace:WPF_MVVM" 
         xmlns:viewModel="clr-namespace:WPF_MVVM.ViewModels"
@@ -33,7 +34,16 @@
                 </MenuItem>
                 <!--<MenuItem Name="MenuFileExit" Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>-->
             </MenuItem>
-            <MenuItem Name="MenuEdit" Header="Edit"></MenuItem>
+            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="-1">
+                <MenuItem.Header>
+                    <font:ImageAwesome Height="15" Width="15" Icon="Regular_ArrowAltCircleLeft"></font:ImageAwesome>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="+1">
+                <MenuItem.Header>
+                    <font:ImageAwesome Height="15" Width="15" Icon="Regular_ArrowAltCircleRight"></font:ImageAwesome>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem Name="MenuHelp" Header="Help">
                 <MenuItem Name="MenuHelpAbout" Header="About"></MenuItem>
             </MenuItem>
@@ -42,12 +52,15 @@
             <StatusBarItem Name="StatusBarTextBlock">
                 <TextBlock Text="{Binding  Status}"></TextBlock>
             </StatusBarItem>
+            <StatusBarItem Name="StatusBarIndex">
+                <TextBlock Text="{Binding  SelectedPageIndex}" IsEnabled="False"></TextBlock>
+            </StatusBarItem>
             <StatusBarItem HorizontalContentAlignment="Right">
                 <ProgressBar  Width="150" Height="15" Value="30"/>
             </StatusBarItem>
         </StatusBar>
 
-        <TabControl>
+        <TabControl SelectedIndex="{Binding SelectedPageIndex}">
             <TabItem Name="TabItem1" Header="Item 1">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -84,11 +97,27 @@
                     <StackPanel Orientation="Horizontal">
                         <!--<Image Source=""></Image>-->
                         <font:ImageAwesome Height="15" Width="15" Foreground="Red" Icon ="Regular_File"></font:ImageAwesome>
-                        <TextBlock Text="Item 2"></TextBlock>
+                        <TextBlock Text="Graf"></TextBlock>
                     </StackPanel>
                 </TabItem.Header>
+                <TabItem.Content>
+                    
+                        <oxy:Plot>
+                          <oxy:Plot.Axes>
+                              <oxy:LinearAxis Position="Left"/>
+                              <oxy:LinearAxis Position="Bottom"/>
+                          </oxy:Plot.Axes>
+                            <oxy:LineSeries Color="Red" ItemsSource="{Binding TestDatePoints}"
+                                            DataFieldX="XValue"
+                                            DataFieldY="YValue">
+
+                            </oxy:LineSeries>
+                        </oxy:Plot>
+                   
+                </TabItem.Content>
             </TabItem>
         </TabControl>
+        
 
     </DockPanel>
 </Window>

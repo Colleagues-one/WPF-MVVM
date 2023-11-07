@@ -10,6 +10,22 @@ namespace WPF_MVVM.ViewModels
     internal class MainWindowViewModel : BaseViewModel
     {
 
+        #region SelectedPageIndex :int - Номер выбранной вкладки
+        /// <summary>
+        /// SelectedPageIndex :int - Номер выбранной вкладки
+        /// </summary>
+        private int _selectedPageIndex = 0;
+        /// <summary>
+        /// SelectedPageIndex :int - Номер выбранной вкладки
+        /// </summary>
+        public int SelectedPageIndex
+        {
+            get => _selectedPageIndex; set => Set(ref _selectedPageIndex, value);
+        }
+        
+
+        #endregion
+
         #region TestDataPoints :IEnumerable<DataPoint> - Тестовый
         /// <summary>
         /// Тестовый набор дданных визуализации данных
@@ -60,8 +76,23 @@ namespace WPF_MVVM.ViewModels
         {
             Application.Current.Shutdown();
         }
-
         #endregion
+
+        public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommandExecute(object sender)
+        {
+            int number = Convert.ToInt32(sender);
+            if(number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 1)
+                return true;
+            return false;
+        } 
+
+        private void OnChangeTabIndexCommandExecuted(object sender)
+        {
+            if((sender is null)) return;
+            SelectedPageIndex += Convert.ToInt32(sender);
+        }
         #endregion
 
 
@@ -71,6 +102,8 @@ namespace WPF_MVVM.ViewModels
 
             CloseApplicationCommand =
                 new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+            ChangeTabIndexCommand = new RelayCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             #endregion
             var data_Points = new List<DatePoint>((int)(360/0.1));
