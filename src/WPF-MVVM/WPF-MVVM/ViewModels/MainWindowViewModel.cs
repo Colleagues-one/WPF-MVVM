@@ -42,9 +42,9 @@ namespace WPF_MVVM.ViewModels
         private void OnCloseApplicationCommandExecuted(object sender)
         {
             Application.Current.Shutdown();
-        } 
-        #endregion
+        }
 
+        #endregion
         #endregion
 
 
@@ -54,7 +54,6 @@ namespace WPF_MVVM.ViewModels
 
             CloseApplicationCommand =
                 new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
-
 
             #endregion
         }

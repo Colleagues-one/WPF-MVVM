@@ -10,9 +10,18 @@
         Title="{Binding Title}"
         Height="450" Width="800">
     <!--Title="{Binding Path=Title}" -->
+
+    <Window.InputBindings>
+<KeyBinding Modifiers="Control" Key="q" Command="{Binding CloseApplicationCommand}"></KeyBinding>
+    </Window.InputBindings>
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationResourcesInMainWindow"/>
+    </Window.Resources>
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Name="MenuFile" Header="File">
@@ -35,7 +44,37 @@
         </StatusBar>
 
         <TabControl>
-            <TabItem Name="TabItem1" Header="Item1"></TabItem>
+            <TabItem Name="TabItem1" Header="Item1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GridSplitter Name ="Splitter1"  Width="4" Grid.Column="0" Grid.Row="0"
+                                  Grid.RowSpan="2" ResizeDirection="Columns"/>
+                   
+                    <GridSplitter Grid.Column="0" Name="Splitter2"  Grid.Row="1"
+                                  Height="4" HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top" Grid.ColumnSpan="2"
+                                  ResizeDirection="Rows"/>
+                   <Rectangle Grid.Column="0" Margin="5" Grid.Row="0" Fill="Chocolate" Stroke="Chartreuse" StrokeThickness="5"  RadiusX="100" RadiusY="200"></Rectangle>
+                    <Ellipse Grid.Column="1" Margin="5" Grid.Row ="0" Fill="Aquamarine" Stroke="Blue" StrokeThickness="5">
+                        <Ellipse.InputBindings>
+                            <!--<MouseBinding Command="{Binding CloseApplicationCommand}" MouseAction="LeftDoubleClick">-->
+                            <MouseBinding Command="{StaticResource CloseApplicationResourcesInApp}" MouseAction="LeftDoubleClick">
+                                <!--<MouseBinding.Command> альтернатива для клика мыши
+                                    <cmd:CloseApplicationCommand/>
+                                </MouseBinding.Command>-->
+                            </MouseBinding>
+                        </Ellipse.InputBindings>
+                    </Ellipse>
+
+                </Grid>
+            </TabItem>
             <TabItem Name="TabItem2" Header="Item2"></TabItem>
         </TabControl>
 
