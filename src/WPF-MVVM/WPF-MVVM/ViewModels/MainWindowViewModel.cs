@@ -155,8 +155,10 @@ namespace WPF_MVVM.ViewModels
                     Surname = $"Surname{i}.{s}",
                     Patronymic = $"Patronymic{i}.{s}",
                     Birthday = DateTime.Now,
-                    Rating = 0
-                }))
+                    Rating = 0,
+                    Description = $"This is a Student from group{i}"
+                })),
+                Description = $"This is a group{i}"
                 }));
 
             #endregion
