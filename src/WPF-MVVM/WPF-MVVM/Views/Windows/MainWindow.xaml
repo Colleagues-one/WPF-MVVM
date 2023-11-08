@@ -76,23 +76,37 @@
                     <GroupBox Header="{Binding SelectedGroup.Name, 
                         FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}" Grid.Column="1">
                         <DataGrid ItemsSource="{Binding SelectedGroup.Students}"
-                                  DisplayMemberPath="Name" AutoGenerateColumns="False" IsReadOnly="True"
+                                  DisplayMemberPath="Name" AutoGenerateColumns="False" CanUserAddRows="False"
                                   HorizontalGridLinesBrush="Gray"
                                   VerticalGridLinesBrush="Gray">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="5*"/>
-                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="5*"/>
-                                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="5*"/>
-                                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" Width="4*"/>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="5*" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="5*" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="5*" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" Width="4*" IsReadOnly="True"/>
                                 <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}" Width="6*"/>-->
                                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="6*" />
                                 <DataGridTemplateColumn Header="Дата рождения" Width="7*">
-                                    <DataGridTemplateColumn.CellTemplate>
+                                    <!--<DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="{x:Type decanat:Student}">
                                             <DatePicker SelectedDate="{Binding Birthday}"></DatePicker>
                                         </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>-->
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate DataType="{x:Type decanat:Student}">
+                                            <TextBlock Text="{Binding Birthday, StringFormat=dd.MM.yyyy}"></TextBlock>
+                                        </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
+
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate DataType="{x:Type decanat:Student}">
+                                            <DatePicker SelectedDate="{Binding Birthday}"></DatePicker>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                
                                 </DataGridTemplateColumn>
+                                
+
                                 <!--отсылка к родителю-->
                                 <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}" />-->
                             </DataGrid.Columns>
