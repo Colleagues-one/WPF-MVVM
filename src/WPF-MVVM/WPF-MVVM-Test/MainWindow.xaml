@@ -5,14 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_Test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="305,139,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="550,89,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="340,309,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="520,304,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Slider HorizontalAlignment="Left" Margin="210,244,0,0" VerticalAlignment="Top" Width="120"/>
+        Title="MainWindow" Height="205" Width="340" MinHeight="170" MinWidth="230">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <!-- Сумма -->
+        <TextBox DockPanel.Dock="Bottom" Text="{Binding Sum, Mode=OneWay}" Margin="5"/>
+        <StackPanel  Margin="5" DockPanel.Dock="Right" Orientation="Vertical">
+            <TextBox x:Name="TheNumber" Margin="5"/>
+            <Button Content="Add" Margin="5" Command="{Binding Add}"
+                    CommandParameter="{Binding ElementName=TheNumber, Path=Text}"/>
+            <Button DockPanel.Dock="Right" VerticalAlignment="Top" Content="Remove"
+                    Width="130" Margin="5"
+                    Command="{Binding Remove}"
+                    CommandParameter="{Binding ElementName=TheListBox, Path=SelectedIndex}"/>
+        </StackPanel>
 
 
-    </Grid>
+        <ListBox Margin="5" x:Name="TheListBox" BorderBrush="Blue" BorderThickness="1" ItemsSource="{Binding MyValues}"/>
+    </DockPanel>
 </Window>
