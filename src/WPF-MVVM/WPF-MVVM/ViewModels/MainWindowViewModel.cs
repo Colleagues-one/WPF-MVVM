@@ -1,8 +1,10 @@
-﻿using System.Net.NetworkInformation;
+﻿using System.Collections.ObjectModel;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
+using WPF_MVVM.Models.Decanat;
 using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
@@ -96,6 +98,28 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
+
+        public ObservableCollection<Group> Groups { get; }
+
+        #region SelectedGroup Выбранная группа Тест
+        /// <summary>
+        /// выбранная группа
+        /// </summary>
+        private Group _selectedGroup;
+
+        /// <summary>
+        /// выбранная группа
+        /// </summary>
+        public Group SelectedGroup
+        {
+            get => _selectedGroup;
+            set => Set(ref _selectedGroup, value);
+        }
+
+
+        #endregion
+
+
         public MainWindowViewModel()
         {
             #region Commands
@@ -106,15 +130,36 @@ namespace WPF_MVVM.ViewModels
             ChangeTabIndexCommand = new RelayCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             #endregion
-            var data_Points = new List<DatePoint>((int)(360/0.1));
+
+            #region Graf
+            var data_Points = new List<DatePoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
                 const double to_rad = Math.PI / 180;
                 var y = Math.Sin(x * to_rad);
-                data_Points.Add((new DatePoint{XValue = x, YValue = y}));
+                data_Points.Add((new DatePoint { XValue = x, YValue = y }));
             }
 
             TestDatePoints = data_Points;
+            #endregion
+
+            #region Decanat
+
+            
+            Groups = new ObservableCollection<Group>(Enumerable.Range(1,20).Select(i=> new Group
+                {
+                Name = $"Группа {i}",
+                Students = new ObservableCollection<Student>(Enumerable.Range(1,10).Select(s=>new Student
+                {
+                    Name = $"Name{i}.{s}",
+                    Surname = $"Surname{i}.{s}",
+                    Patronymic = $"Patronymic{i}.{s}",
+                    Birthday = DateTime.Now,
+                    Rating = 0
+                }))
+                }));
+
+            #endregion
         }
     }
 }
