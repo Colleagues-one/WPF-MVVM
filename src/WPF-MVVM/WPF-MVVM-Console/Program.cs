@@ -54,6 +54,7 @@ namespace WPF_MVVM_Console
 
         private static IEnumerable<(string Country, string Province, int[] Counts)> GetData()
         {
+            
             var lines = GetDataLines()
                 .Skip(1)
                 .Select(line => line.Split(','));

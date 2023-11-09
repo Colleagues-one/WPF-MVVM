@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
@@ -9,9 +10,11 @@ using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
+    
     internal class MainWindowViewModel : BaseViewModel
     {
 
+        
         #region SelectedPageIndex :int - Номер выбранной вкладки
         /// <summary>
         /// SelectedPageIndex :int - Номер выбранной вкладки
@@ -88,6 +91,7 @@ namespace WPF_MVVM.ViewModels
             if(number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 1)
                 return true;
             return false;
+            
         } 
 
         private void OnChangeTabIndexCommandExecuted(object sender)
@@ -97,7 +101,13 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
-
+        
+        
+        #region DecanatTEST
+        /// <summary>
+        /// 
+        /// </summary>
+        public object[] CompositeCollection { get; }
 
         public ObservableCollection<Group> Groups { get; }
 
@@ -115,9 +125,28 @@ namespace WPF_MVVM.ViewModels
             get => _selectedGroup;
             set => Set(ref _selectedGroup, value);
         }
+        #endregion
 
 
         #endregion
+
+
+
+
+
+        #region SelectedCompositeValue : object - Выбранный непонятный элемент
+        /// <summary>
+        /// field Выбранный непонятный элемент
+        /// </summary>
+        private object _selectedCompositeValue;
+
+        /// <summary>
+        ///  attribute Выбранный непонятный элемент
+        /// </summary>
+        public object SelectedCompositeValue { get => _selectedCompositeValue; set =>Set(ref _selectedCompositeValue, value); }
+        #endregion
+
+
 
 
         public MainWindowViewModel()
@@ -144,7 +173,7 @@ namespace WPF_MVVM.ViewModels
             #endregion
 
             #region Decanat
-
+            
             
             Groups = new ObservableCollection<Group>(Enumerable.Range(1,20).Select(i=> new Group
                 {
@@ -161,6 +190,14 @@ namespace WPF_MVVM.ViewModels
                 Description = $"This is a group{i}"
                 }));
 
+            
+            var datalist = new List<object>();
+            datalist.Add("iffdk");
+                datalist.Add(49);
+            datalist.Add(Groups[1]);
+            datalist.Add(Groups[1].Students[3]);
+
+            CompositeCollection = datalist.ToArray();
             #endregion
         }
     }
