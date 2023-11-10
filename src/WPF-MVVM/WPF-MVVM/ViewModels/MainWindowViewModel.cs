@@ -83,26 +83,81 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
+        #region ChangeTabIndex Command
         public ICommand ChangeTabIndexCommand { get; }
 
         private bool CanChangeTabIndexCommandExecute(object sender)
         {
             int number = Convert.ToInt32(sender);
-            if(number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 1)
+            if (number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 1)
                 return true;
             return false;
-            
-        } 
+
+        }
 
         private void OnChangeTabIndexCommandExecuted(object sender)
         {
-            if((sender is null)) return;
+            if ((sender is null)) return;
             SelectedPageIndex += Convert.ToInt32(sender);
         }
         #endregion
 
         
+
+
+        #region ICommand CreateNewGroup - Creating new group test
+        /// <summary>
+        /// Creating new group test
+        /// </summary>
+        public ICommand CreateNewGroupCommand { get; }
+
+        private bool CanCreateNewGroupCommandExecute(object parameter) => true;
+
+        private void OnCreateNewGroupCommandExecuted(object parameter)
+        {
+            var group_max_index = Groups.Count + 1;
+            var new_group = new Group
+            {
+                Name = $"Группа {group_max_index}",
+                Students = new ObservableCollection<Student>()
+            };
+            Groups.Add(new_group);
+        }
+        #endregion
+
         
+
+        #region ICommand DeleteGroup - Deleting group
+        /// <summary>
+        /// Deleting group
+        /// </summary>
+        public ICommand DeleteGroupCommand { get; }
+
+        private bool CanDeleteGroupCommandExecute(object parameter) => parameter is Group group && Groups.Contains(group);
+
+        private void OnDeleteGroupCommandExecuted(object parameter)
+        {
+            if (!(parameter is Group group)) return;
+            int group_index = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if(group_index < Groups.Count)
+            {
+                SelectedGroup = Groups[group_index];
+            }
+        }
+        #endregion
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
         #region DecanatTEST
         /// <summary>
         /// 
@@ -158,6 +213,10 @@ namespace WPF_MVVM.ViewModels
 
             ChangeTabIndexCommand = new RelayCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
+
+            CreateNewGroupCommand = new RelayCommand(OnCreateNewGroupCommandExecuted, CanCreateNewGroupCommandExecute);
+
+            DeleteGroupCommand = new RelayCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
             #endregion
 
             #region Graf
@@ -173,19 +232,20 @@ namespace WPF_MVVM.ViewModels
             #endregion
 
             #region Decanat
-            
-            
+
+            int student_index = 1;
             Groups = new ObservableCollection<Group>(Enumerable.Range(1,20).Select(i=> new Group
                 {
                 Name = $"Группа {i}",
                 Students = new ObservableCollection<Student>(Enumerable.Range(1,10).Select(s=>new Student
                 {
-                    Name = $"Name{i}.{s}",
-                    Surname = $"Surname{i}.{s}",
-                    Patronymic = $"Patronymic{i}.{s}",
+                    Name = $"Name {student_index}",
+                    Surname = $"Surname {student_index}",
+                    Patronymic = $"Patronymic {student_index++}",
                     Birthday = DateTime.Now,
                     Rating = 0,
                     Description = $"This is a Student from group{i}"
+                    
                 })),
                 Description = $"This is a group{i}"
                 }));
