@@ -14,17 +14,19 @@
         Title="{Binding Title}"
         Height="450" Width="800">
     <!--Title="{Binding Path=Title}" -->
-
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationResourcesInMainWindow"/>
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Modifiers="Control" Key="q" Command="{Binding CloseApplicationCommand}"></KeyBinding>
+        <KeyBinding Modifiers="Control" Key="w" Command="{StaticResource CloseApplicationResourcesInApp}"> </KeyBinding>
+        <KeyBinding Modifiers="Control" Key="e" Command="{StaticResource CloseApplicationResourcesInMainWindow}"> </KeyBinding>
     </Window.InputBindings>
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Window.Resources>
-        <cmd:CloseApplicationCommand x:Key="CloseApplicationResourcesInMainWindow"/>
-    </Window.Resources>
+    
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -134,15 +136,13 @@
                        <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <UniformGrid.Resources>
-                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                    <!--<Style TargetType="Button">
                                         <Setter Property="Margin" Value="3,0"></Setter>
-                                        <Setter Property="Background" Value="CornflowerBlue"></Setter>
                                         <Setter Property="Height" Value="20"></Setter>
-                                    </Style>
-
+                                    </Style> нужно реализовать связь параметров--> 
                                 </UniformGrid.Resources>
-                                <Button Style="{StaticResource ButtonStyle}" Content="Добавить" Command="{Binding CreateNewGroupCommand}"></Button>
-                                <Button Style="{StaticResource ButtonStyle}" Content="Удалить" Command="{Binding DeleteGroupCommand}"
+                                <Button Style="{StaticResource PrimaryBtn}" Content="Добавить" Command="{Binding CreateNewGroupCommand}"></Button>
+                                <Button Style ="{StaticResource DangerBtn}"  Content="Удалить" Command="{Binding DeleteGroupCommand}"
                                          CommandParameter="{Binding SelectedGroup}"></Button>
 
                             </UniformGrid>
