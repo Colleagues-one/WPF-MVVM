@@ -102,9 +102,6 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
-        
-
-
         #region ICommand CreateNewGroup - Creating new group test
         /// <summary>
         /// Creating new group test
@@ -123,9 +120,7 @@ namespace WPF_MVVM.ViewModels
             };
             Groups.Add(new_group);
         }
-        #endregion
-
-        
+        #endregion       
 
         #region ICommand DeleteGroup - Deleting group
         /// <summary>
@@ -147,15 +142,7 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
-
         #endregion
-
-
-
-
-
-
-
 
 
         #region DecanatTEST
@@ -182,12 +169,7 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
-
         #endregion
-
-
-
-
 
         #region SelectedCompositeValue : object - Выбранный непонятный элемент
         /// <summary>
@@ -202,7 +184,7 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
-
+        
 
         public MainWindowViewModel()
         {

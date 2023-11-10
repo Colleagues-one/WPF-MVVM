@@ -133,8 +133,17 @@
                     <GroupBox Header="Группы">
                        <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                               <Button Margin="0,0,3,0" Content="Добавить" Command="{Binding CreateNewGroupCommand}" Height="20"></Button>
-                                <Button Margin="3,0,0,0" Content="Удалить" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" Height="20" ></Button>
+                                <UniformGrid.Resources>
+                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                        <Setter Property="Margin" Value="3,0"></Setter>
+                                        <Setter Property="Background" Value="CornflowerBlue"></Setter>
+                                        <Setter Property="Height" Value="20"></Setter>
+                                    </Style>
+
+                                </UniformGrid.Resources>
+                                <Button Style="{StaticResource ButtonStyle}" Content="Добавить" Command="{Binding CreateNewGroupCommand}"></Button>
+                                <Button Style="{StaticResource ButtonStyle}" Content="Удалить" Command="{Binding DeleteGroupCommand}"
+                                         CommandParameter="{Binding SelectedGroup}"></Button>
 
                             </UniformGrid>
                            
