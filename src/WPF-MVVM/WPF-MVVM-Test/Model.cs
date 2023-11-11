@@ -25,6 +25,12 @@ namespace WPF_MVVM_Test
         {
             if (index >= 0 && index < _myValues.Count) _myValues.RemoveAt(index);
         }
+
+        public void ChangeSelectedItem(int index, int value)
+        {
+            if(index >=0 && index < _myValues.Count) _myValues[index] = value;
+        }
+
         public int Sum => MyPublicValues.Sum(); 
 
 

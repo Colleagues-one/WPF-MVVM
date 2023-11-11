@@ -13,16 +13,26 @@
         <!-- Сумма -->
         <TextBox DockPanel.Dock="Bottom" Text="{Binding Sum, Mode=OneWay}" Margin="5"/>
         <StackPanel  Margin="5" DockPanel.Dock="Right" Orientation="Vertical">
-            <TextBox x:Name="TheNumber" Margin="5"/>
-            <Button Content="Add" Margin="5" Command="{Binding Add}"
-                    CommandParameter="{Binding ElementName=TheNumber, Path=Text}"/>
+            <TextBox x:Name="TheNumber" Text="{Binding Item}" Margin="5"/>
+            <Button Content="Add" Margin="5" Command="{Binding AddItemCommand}"  
+                    CommandParameter="{Binding ElementName=TheNumber, Path=Text }"/>
             <Button DockPanel.Dock="Right" VerticalAlignment="Top" Content="Remove"
                     Width="130" Margin="5"
-                    Command="{Binding Remove}"
-                    CommandParameter="{Binding ElementName=TheListBox, Path=SelectedIndex}"/>
+                    Command="{Binding DeleteItemCommand}"
+                    CommandParameter="{Binding SelectedItem}"/>
         </StackPanel>
 
 
-        <ListBox Margin="5" x:Name="TheListBox" BorderBrush="Blue" BorderThickness="1" ItemsSource="{Binding MyValues}"/>
+        <ListBox Margin="5" x:Name="TheListBox" BorderBrush="Blue" BorderThickness="1" ItemsSource="{Binding MyValues}"
+                 SelectedIndex="{Binding SelectedItem}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Height" Value="20"/>
+                    <Setter Property="FontSize" Value="10"></Setter>
+ 
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+        </ListBox>
     </DockPanel>
 </Window>

@@ -89,7 +89,7 @@ namespace WPF_MVVM.ViewModels
         private bool CanChangeTabIndexCommandExecute(object sender)
         {
             int number = Convert.ToInt32(sender);
-            if (number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 1)
+            if (number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 3)
                 return true;
             return false;
 
