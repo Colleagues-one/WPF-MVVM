@@ -47,6 +47,7 @@ on:
 jobs:
 
   build:
+    name: Initialize build on .NET Core
 
     strategy:
       matrix:
