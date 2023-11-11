@@ -104,6 +104,7 @@ namespace WPF_MVVM.ViewModels
 
 
 
+
         #region ICommand CreateNewGroup - Creating new group test
         /// <summary>
         /// Creating new group test
