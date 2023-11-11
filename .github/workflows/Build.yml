@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+ name: .NET Core Desktop
 
 on:
   push:
@@ -27,4 +27,6 @@ jobs:
         dotnet restore
         
     - name: build
-      run: dotnet build -c Debug --no-restore
+      run: |
+        cd src\WPF-MVVM
+        dotnet build -c Debug --no-restore
