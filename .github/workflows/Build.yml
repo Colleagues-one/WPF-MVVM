@@ -30,3 +30,4 @@ jobs:
       run: |
         cd src\WPF-MVVM
         dotnet build -c Debug --no-restore
+        
