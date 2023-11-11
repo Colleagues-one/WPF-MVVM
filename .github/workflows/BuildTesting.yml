@@ -1,19 +1,11 @@
-name: .NET Core Desktop
+name: .NET Core
 
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+on: [push, pull_request]
 
 jobs:
 
   build:
     name: Initialize build on .NET Core
-
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
 
     runs-on: windows-latest 
     steps:
