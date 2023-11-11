@@ -102,6 +102,7 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
+
         #region ICommand CreateNewGroup - Creating new group test
         /// <summary>
         /// Creating new group test
