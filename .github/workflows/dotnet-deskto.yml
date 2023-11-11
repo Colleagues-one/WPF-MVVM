@@ -21,8 +21,5 @@ jobs:
       with:
         dotnet-version: 8.0
 
-    - name: Setup MSBuild.exe
-      run: dotnet restore
-
     - name: build
       run: dotnet build -c Debug --no-restore
