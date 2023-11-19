@@ -10,7 +10,7 @@
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
-    <Style TargetType="Button" x:Key ="DangerBtn">
+    <Style TargetType="Button" x:Key ="DangerBtn"  BasedOn="{StaticResource BtnBase}">
         <Setter Property="Background" Value="Red"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>

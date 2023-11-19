@@ -65,40 +65,7 @@
         </StatusBar>
 
         <TabControl SelectedIndex="{Binding SelectedPageIndex}">
-            <TabItem Header="Разнородные данные">
-                <Grid>
-                     <Grid.ColumnDefinitions>
-                         <ColumnDefinition/>
-                         <ColumnDefinition/>
-                     </Grid.ColumnDefinitions>
-                    <GroupBox>
-                        <GroupBox.Header><TextBlock Text="Элементы"/></GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeListItemsDataTemplates.xaml"></ResourceDictionary>
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                            
-                        </GroupBox.Resources>
-                        <ListBox ItemsSource="{Binding CompositeCollection}"
-                                 SelectedItem="{Binding SelectedCompositeValue}" Margin="2,0,-2,0">
-                        </ListBox>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1">
-                        <GroupBox.Header><TextBlock Text="Выбранный элемент"></TextBlock></GroupBox.Header>
-                        <GroupBox.Resources>
-                           <ResourceDictionary>
-                               <ResourceDictionary.MergedDictionaries>
-                                   <ResourceDictionary Source="../../Resources/DataTemplates/CompositeItemsControlDataTemplates.xaml"></ResourceDictionary>
-                               </ResourceDictionary.MergedDictionaries>
-                           </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ContentControl Content="{Binding SelectedCompositeValue}"/>
-                    </GroupBox>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
+           <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
@@ -106,7 +73,12 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Группы">
                        <DockPanel>
-                            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
+                           <DockPanel DockPanel.Dock ="Top" Margin="0,3">
+                               <font:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
+                               <TextBox/>
+                           </DockPanel>
+
+                           <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <UniformGrid.Resources>
                                     <Style TargetType="Button" >
                                         <Setter Property="Margin" Value="3,0"></Setter>
@@ -151,10 +123,15 @@
                     </GroupBox>
                     <GroupBox Header="{Binding SelectedGroup.Name, 
                         FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}" Grid.Column="1">
-                        <DataGrid ItemsSource="{Binding SelectedGroup.Students}"
-                                  DisplayMemberPath="Name" AutoGenerateColumns="False" CanUserAddRows="False"
-                                  HorizontalGridLinesBrush="Gray"
-                                  VerticalGridLinesBrush="Gray">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock ="Top" Margin="0,3">
+                                <font:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
+                                <TextBox/>
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding SelectedGroup.Students}"
+                                      DisplayMemberPath="Name" AutoGenerateColumns="False" CanUserAddRows="False"
+                                      HorizontalGridLinesBrush="Gray"
+                                      VerticalGridLinesBrush="Gray">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="5*" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="5*" IsReadOnly="True"/>
@@ -186,8 +163,45 @@
                                 <!--отсылка к родителю-->
                                 <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}" />-->
                             </DataGrid.Columns>
-                        </DataGrid>
+                            </DataGrid>
+                        </DockPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Разнородные данные">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <TextBlock Text="Элементы"/>
+                        </GroupBox.Header>
+                        <GroupBox.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeListItemsDataTemplates.xaml"></ResourceDictionary>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
 
+                        </GroupBox.Resources>
+                        <ListBox ItemsSource="{Binding CompositeCollection}"
+                                 SelectedItem="{Binding SelectedCompositeValue}" Margin="2,0,-2,0">
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1">
+                        <GroupBox.Header>
+                            <TextBlock Text="Выбранный элемент"></TextBlock>
+                        </GroupBox.Header>
+                        <GroupBox.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeItemsControlDataTemplates.xaml"></ResourceDictionary>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
+                        </GroupBox.Resources>
+                        <ContentControl Content="{Binding SelectedCompositeValue}"/>
                     </GroupBox>
                 </Grid>
             </TabItem>
