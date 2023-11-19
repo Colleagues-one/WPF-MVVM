@@ -73,6 +73,9 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Группы">
                        <DockPanel>
+                           <DockPanel.Resources>
+                               <CollectionViewSource x:Key="GroupsCollection" Source="{Binding Groups}"/>
+                           </DockPanel.Resources>
                            <DockPanel DockPanel.Dock ="Top" Margin="0,3">
                                <font:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
                                <TextBox/>
@@ -102,7 +105,7 @@
 
                             </UniformGrid>
                            
-                            <ListBox  ItemsSource="{Binding Groups}" SelectedIndex="0"
+                            <ListBox  ItemsSource="{Binding Source={StaticResource GroupsCollection}}" SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}">
                                <ListBox.ItemTemplate>
                                    <DataTemplate DataType="{x:Type decanat:Group}">
@@ -121,8 +124,16 @@
                            
                         </DockPanel>
                     </GroupBox>
-                    <GroupBox Header="{Binding SelectedGroup.Name, 
-                        FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}" Grid.Column="1">
+                    <GroupBox  Grid.Column="1">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="Студенты {0}">
+                                        <Binding Path="SelectedGroup.Name" FallbackValue="Группа не выбрана" TargetNullValue="Группа не выбрана"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </GroupBox.Header>
                         <DockPanel>
                             <DockPanel DockPanel.Dock ="Top" Margin="0,3">
                                 <font:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
