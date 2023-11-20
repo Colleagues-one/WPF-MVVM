@@ -17,6 +17,7 @@ namespace WPF_MVVM.ViewModels
     internal class MainWindowViewModel : BaseViewModel
     {
 
+        //dev feachure test
         
         #region SelectedPageIndex :int - Номер выбранной вкладки
         /// <summary>
