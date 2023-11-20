@@ -109,8 +109,17 @@
                             </UniformGrid>
                            
                             <ListBox  ItemsSource="{Binding Source={StaticResource GroupsCollection}}" SelectedIndex="0"
-                                     SelectedItem="{Binding SelectedGroup}">
-                               <ListBox.ItemTemplate>
+                                     SelectedItem="{Binding SelectedGroup}" 
+                                     VirtualizingPanel.IsContainerVirtualizable="True"
+                                     VirtualizingPanel.IsVirtualizing="True"
+                                     VirtualizingPanel.VirtualizationMode="Recycling">
+                                    <!--Recycling использует только видимые элементы списков и снижает потребление памяти-->
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
                                    <DataTemplate DataType="{x:Type decanat:Group}">
                                        <StackPanel Orientation="Horizontal">
                                            <TextBlock Text="{Binding Name}" Name="TextView"/>
