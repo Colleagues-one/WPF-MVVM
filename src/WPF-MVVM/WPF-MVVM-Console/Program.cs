@@ -12,16 +12,9 @@ namespace WPF_MVVM_Console
 
         static void Main(string[] args)
         {
-
-            /*foreach (var data_line in GetDataLines())
-            {
-                Console.WriteLine(data_line);
-            }*/
-           /* var dates = GetDates();
-            Console.WriteLine(string.Join("\r\n", dates));*/
-
+        
            var russia = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
-           Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia.Counts,(date,count) => $"{date:dd:MM} - {count}")));
+           Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia.Counts,(date,count) => $"{date:dd.MM.yyyy} - {count}")));
             Console.ReadKey();
         }
 
