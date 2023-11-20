@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using OxyPlot;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
 using WPF_MVVM.Models.Decanat;
@@ -102,9 +105,6 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
-        
-
-
         #region ICommand CreateNewGroup - Creating new group test
         /// <summary>
         /// Creating new group test
@@ -168,9 +168,65 @@ namespace WPF_MVVM.ViewModels
         public Group SelectedGroup
         {
             get => _selectedGroup;
-            set => Set(ref _selectedGroup, value);
+            set
+            {
+                if (!Set(ref _selectedGroup, value) ) return;
+                _SelectedGroupStudents.Source = value?.Students;
+                OnPropertyChanged(nameof(SelectedGroupStudents));
+            } 
         }
         #endregion
+
+
+        #region StudentFilterText : string - Текст фильтра студентов
+
+        /// <summary>
+        /// field Текст фильтра студентов
+        /// </summary>
+        private string _StudentFilterText;
+
+        /// <summary>
+        ///  attribute Текст фильтра студентов
+        /// </summary>
+        public string StudentFilterText
+        {
+            get => _StudentFilterText;
+            set
+            {
+                if (!Set(ref _StudentFilterText, value)) return;
+                _SelectedGroupStudents.View.Refresh();
+            }
+        }
+
+        #endregion
+
+        private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+
+        public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
+
+        private void OnStudentFiltred(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Student student))
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            var filter = _StudentFilterText;
+            if (string.IsNullOrWhiteSpace(filter)) return;
+
+
+            if (student.Name is null || student.Surname is null || student.Patronymic is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            if (student.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Surname.Contains(filter, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Patronymic.Contains(filter, StringComparison.OrdinalIgnoreCase)) return;
+            e.Accepted = false;
+        }
 
         #endregion
 
@@ -243,7 +299,13 @@ namespace WPF_MVVM.ViewModels
             datalist.Add(Groups[1].Students[3]);
 
             CompositeCollection = datalist.ToArray();
+
+
+            _SelectedGroupStudents.Filter += OnStudentFiltred;
+
             #endregion
         }
+
+       
     }
 }
