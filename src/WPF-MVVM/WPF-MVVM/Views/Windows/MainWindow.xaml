@@ -65,7 +65,38 @@
         </StatusBar>
 
         <TabControl SelectedIndex="{Binding SelectedPageIndex}">
-           <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
+            <TabItem Header="Файловая система">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Column="0"  Header="Директории">
+                        <TreeView ItemsSource="{Binding DiskRootDir.DirectoryItems}">
+                            <TreeView.ItemTemplate>
+                                <!--<DataTemplate DataType="{x:Type viewModel:DirectoryViewModel}">
+                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
+                                </DataTemplate>-->
+                                <HierarchicalDataTemplate DataType="{x:Type viewModel:DirectoryViewModel}"
+                                                          ItemsSource="{Binding DirectoryItems}">
+                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Файлы">
+                        <ListBox SelectedItem="{Binding SelectedDirectory.Files, Mode=OneWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModel:DirectoryViewModel}">
+                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
@@ -294,6 +325,7 @@
                     </Button.Triggers>
                 </Button>
             </TabItem>
+            
         </TabControl>
         
 

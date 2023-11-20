@@ -243,8 +243,26 @@ namespace WPF_MVVM.ViewModels
         public object SelectedCompositeValue { get => _selectedCompositeValue; set =>Set(ref _selectedCompositeValue, value); }
         #endregion
 
+        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("c:\\");
 
-        
+
+        #region SelectedDirectory : DirectoryViewModel - Выбранная директория
+
+        /// <summary>
+        /// field Выбранная директория
+        /// </summary>
+        private DirectoryViewModel _SelectedDirectory;
+
+        /// <summary>
+        ///  attribute Выбранная директория
+        /// </summary>
+        public DirectoryViewModel SelectedDirectory
+        {
+            get => _SelectedDirectory;
+            set => _SelectedDirectory = value;
+        }
+
+        #endregion  
 
         public MainWindowViewModel()
         {
