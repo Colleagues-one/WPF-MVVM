@@ -73,19 +73,26 @@
                     </Grid.ColumnDefinitions>
 
                     <GroupBox Grid.Column="0"  Header="Директории">
+                        <GroupBox.Resources>
+                            <HierarchicalDataTemplate DataType="{x:Type viewModel:DirectoryViewModel}"
+                                                      ItemsSource="{Binding DirectoryItems}">
+                                <StackPanel Orientation="Horizontal">
+                                    <font:FontAwesome Height="12" Icon="Solid_Folder" Foreground="Orange"/>
+                                    <TextBlock Margin="4,0,0,0" Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                            <DataTemplate DataType="{x:Type viewModel:FileViewModel}">
+                                <StackPanel Orientation="Horizontal" ToolTip="{Binding CreationTime}">
+                                    <font:ImageAwesome Height="12" Icon="Regular_File" Foreground="Blue"/>
+                                    <TextBlock Margin="4,0,0,0"  Text="{Binding Name}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.Resources>
                         <TreeView ItemsSource="{Binding DiskRootDir.DirectoryItems}">
-                            <TreeView.ItemTemplate>
-                                <!--<DataTemplate DataType="{x:Type viewModel:DirectoryViewModel}">
-                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
-                                </DataTemplate>-->
-                                <HierarchicalDataTemplate DataType="{x:Type viewModel:DirectoryViewModel}"
-                                                          ItemsSource="{Binding DirectoryItems}">
-                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
-                                </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>
+                            
                         </TreeView>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Файлы">
+                    <!--<GroupBox Grid.Column="1" Header="Файлы">
                         <ListBox SelectedItem="{Binding SelectedDirectory.Files, Mode=OneWay}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="{x:Type viewModel:DirectoryViewModel}">
@@ -93,7 +100,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </GroupBox>
+                    </GroupBox>-->
                 </Grid>
             </TabItem>
             <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
