@@ -154,7 +154,9 @@
                             <DataGrid ItemsSource="{Binding SelectedGroup.Students}"
                                       DisplayMemberPath="Name" AutoGenerateColumns="False" CanUserAddRows="False"
                                       HorizontalGridLinesBrush="Gray"
-                                      VerticalGridLinesBrush="Gray">
+                                      VerticalGridLinesBrush="Gray"
+                                      EnableRowVirtualization="True"
+                                      EnableColumnVirtualization="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="5*" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="5*" IsReadOnly="True"/>
