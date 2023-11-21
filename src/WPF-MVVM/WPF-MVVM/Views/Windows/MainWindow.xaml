@@ -11,42 +11,17 @@
         xmlns:local="clr-namespace:WPF_MVVM" 
         xmlns:viewModel="clr-namespace:WPF_MVVM.ViewModels"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
-        Title="{Binding Title}"
+        Title="Анализ данных"
         Height="450" Width="800">
-    <!--Title="{Binding Path=Title}" -->
-    <Window.Resources>
-        <cmd:CloseApplicationCommand x:Key="CloseApplicationResourcesInMainWindow"/>
-    </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Modifiers="Control" Key="q" Command="{Binding CloseApplicationCommand}"></KeyBinding>
-        <KeyBinding Modifiers="Control" Key="w" Command="{StaticResource CloseApplicationResourcesInApp}"> </KeyBinding>
-        <KeyBinding Modifiers="Control" Key="e" Command="{StaticResource CloseApplicationResourcesInMainWindow}"> </KeyBinding>
-    </Window.InputBindings>
+
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
 
-    
-
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Name="MenuFile" Header="File">
-                <MenuItem Name="MenuFileExit" Header="Exit">
-                    <MenuItem.Command>
-                        <cmd:CloseApplicationCommand/>
-                    </MenuItem.Command>
-                </MenuItem>
-                <!--<MenuItem Name="MenuFileExit" Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>-->
-            </MenuItem>
-            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="-1">
-                <MenuItem.Header>
-                    <font:ImageAwesome Height="15" Width="15" Icon="Regular_ArrowAltCircleLeft"></font:ImageAwesome>
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem Command="{Binding ChangeTabIndexCommand}" CommandParameter="+1">
-                <MenuItem.Header>
-                    <font:ImageAwesome Height="15" Width="15" Icon="Regular_ArrowAltCircleRight"></font:ImageAwesome>
-                </MenuItem.Header>
+            <MenuItem Header="File">
+                <MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Name="MenuHelp" Header="Help">
                 <MenuItem Name="MenuHelpAbout" Header="About"></MenuItem>
@@ -65,44 +40,6 @@
         </StatusBar>
 
         <TabControl SelectedIndex="{Binding SelectedPageIndex}">
-            <TabItem Header="Файловая система">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <GroupBox Grid.Column="0"  Header="Директории">
-                        <GroupBox.Resources>
-                            <HierarchicalDataTemplate DataType="{x:Type viewModel:DirectoryViewModel}"
-                                                      ItemsSource="{Binding DirectoryItems}">
-                                <StackPanel Orientation="Horizontal">
-                                    <font:FontAwesome Height="12" Icon="Solid_Folder" Foreground="Orange"/>
-                                    <TextBlock Margin="4,0,0,0" Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
-                                </StackPanel>
-                            </HierarchicalDataTemplate>
-                            <DataTemplate DataType="{x:Type viewModel:FileViewModel}">
-                                <StackPanel Orientation="Horizontal" ToolTip="{Binding CreationTime}">
-                                    <font:ImageAwesome Height="12" Icon="Regular_File" Foreground="Blue"/>
-                                    <TextBlock Margin="4,0,0,0"  Text="{Binding Name}"></TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GroupBox.Resources>
-                        <TreeView ItemsSource="{Binding DiskRootDir.DirectoryItems}">
-                            
-                        </TreeView>
-                    </GroupBox>
-                    <!--<GroupBox Grid.Column="1" Header="Файлы">
-                        <ListBox SelectedItem="{Binding SelectedDirectory.Files, Mode=OneWay}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate DataType="{x:Type viewModel:DirectoryViewModel}">
-                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"></TextBlock>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </GroupBox>-->
-                </Grid>
-            </TabItem>
             <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -121,29 +58,12 @@
                                <font:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
                                 <TextBox Name ="GroupNameFilterText" TextChanged="OnGroupsFilterTextChanged"/>
                            </DockPanel>
-
                            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <UniformGrid.Resources>
-                                    <Style TargetType="Button" >
-                                        <Setter Property="Margin" Value="3,0"></Setter>
-                                        <Setter Property="Height" Value="20"></Setter>
-                                    </Style> 
-                                </UniformGrid.Resources>
-                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding CreateNewGroupCommand}">
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal">
-                                            <font:ImageAwesome Height="12" Icon="Solid_Check" Foreground="LightGreen" Margin="0,0,8,0">
-                                                <font:ImageAwesome.Effect>
-                                                    <DropShadowEffect ShadowDepth="1"/>
-                                                </font:ImageAwesome.Effect>
-                                            </font:ImageAwesome>
-                                            <TextBlock Text="Добавить"></TextBlock>
-                                        </StackPanel>
-                                    </Button.Content>
-                                </Button>
-                                <Button Style ="{StaticResource DangerBtn}"  Content="Удалить" Command="{Binding DeleteGroupCommand}"
-                                         CommandParameter="{Binding SelectedGroup}"></Button>
-
+                                <Button Style="{StaticResource PrimaryBtn}"
+                                        Command="{Binding CreateNewGroupCommand}"/>
+                                <Button Style ="{StaticResource DangerBtn}" 
+                                        Command="{Binding DeleteGroupCommand}"
+                                        CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                            
                             <ListBox  ItemsSource="{Binding Source={StaticResource GroupsCollection}}" SelectedIndex="0"
@@ -231,43 +151,6 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Разнородные данные">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <GroupBox>
-                        <GroupBox.Header>
-                            <TextBlock Text="Элементы"/>
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeListItemsDataTemplates.xaml"></ResourceDictionary>
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-
-                        </GroupBox.Resources>
-                        <ListBox ItemsSource="{Binding CompositeCollection}"
-                                 SelectedItem="{Binding SelectedCompositeValue}" Margin="2,0,-2,0">
-                        </ListBox>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1">
-                        <GroupBox.Header>
-                            <TextBlock Text="Выбранный элемент"></TextBlock>
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeItemsControlDataTemplates.xaml"></ResourceDictionary>
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ContentControl Content="{Binding SelectedCompositeValue}"/>
-                    </GroupBox>
-                </Grid>
-            </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -292,49 +175,6 @@
                    
                 </TabItem.Content>
             </TabItem>
-            <TabItem Header="Button">
-                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Content="123" RenderTransformOrigin="0.5,0.5">
-                    <Button.RenderTransform>
-                        <RotateTransform Angle="0" x:Name="ButtonRotate"></RotateTransform>
-                    </Button.RenderTransform>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" x:Name="ButtonBrush"></SolidColorBrush>
-                    </Button.Background>
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="ButtonRotate"
-                                                     Storyboard.TargetProperty="Angle"
-                                                     From="0" To="360" By="0.1"
-                                                     Duration="0:0:1" AutoReverse="True"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Button.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                   <ColorAnimation Storyboard.TargetName="ButtonBrush"
-                                                   Storyboard.TargetProperty="Color" To="Red"
-                                                   Duration="0:0:1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Button.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="ButtonBrush"
-                                                    Storyboard.TargetProperty="Color" To="White"
-                                                    Duration="0:0:1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                </Button>
-            </TabItem>
-            
         </TabControl>
-        
-
     </DockPanel>
 </Window>

@@ -17,9 +17,8 @@ namespace WPF_MVVM.ViewModels
     internal class MainWindowViewModel : BaseViewModel
     {
 
-        //test feachure work
 
-        #region SelectedPageIndex :int - Номер выбранной вкладки
+        #region SelectedPageIndex :int - Номер выбранной вкладки в статус баре
         /// <summary>
         /// SelectedPageIndex :int - Номер выбранной вкладки
         /// </summary>
@@ -35,7 +34,7 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
-        #region TestDataPoints :IEnumerable<DataPoint> - Тестовый
+        #region TestDataPoints :IEnumerable<DataPoint> - Тестовый график
         /// <summary>
         /// Тестовый набор дданных визуализации данных
         /// </summary>
@@ -50,60 +49,19 @@ namespace WPF_MVVM.ViewModels
         } 
         #endregion
 
-        #region Title Заголовок окна
-        private string _title = "MainWindow";
-
-        /// <summary> Заголовок окна </summary>
-        public string Title
-        {
-            get => _title;
-           /* set сеттер если бы бы базовый класс не имел виртуального метода Set
-            {
-                if (Equals(value, _title)) return;
-                _title = value;
-                OnPropertyChanged();
-                Set(ref _title, value);
-            }*/ 
-            set => Set(ref _title, value);
-        }
-        #endregion
-
         #region Status Статус окна
         private string _status = "Status";
         /// <summary> статус программы </summary>
         public string Status { get => _status; set => Set(ref _status, value); }
         #endregion
 
+
+
         #region Commands 
 
         #region CloseAppCommand
-        public ICommand CloseApplicationCommand { get; }
+        public CloseApplicationCommand CloseApplicationCommand { get; }
 
-        private bool CanCloseApplicationCommandExecute(object sender) => true;
-
-        private void OnCloseApplicationCommandExecuted(object sender)
-        {
-            Application.Current.Shutdown();
-        }
-        #endregion
-
-        #region ChangeTabIndex Command
-        public ICommand ChangeTabIndexCommand { get; }
-
-        private bool CanChangeTabIndexCommandExecute(object sender)
-        {
-            int number = Convert.ToInt32(sender);
-            if (number <= 0 && _selectedPageIndex >= 1 || number >= 0 && _selectedPageIndex < 3)
-                return true;
-            return false;
-
-        }
-
-        private void OnChangeTabIndexCommandExecuted(object sender)
-        {
-            if ((sender is null)) return;
-            SelectedPageIndex += Convert.ToInt32(sender);
-        }
         #endregion
 
         #region ICommand CreateNewGroup - Creating new group test
@@ -150,11 +108,6 @@ namespace WPF_MVVM.ViewModels
 
 
         #region DecanatTEST
-        /// <summary>
-        /// 
-        /// </summary>
-        public object[] CompositeCollection { get; }
-
         public ObservableCollection<Group> Groups { get; }
 
         #region SelectedGroup Выбранная группа Тест
@@ -177,7 +130,6 @@ namespace WPF_MVVM.ViewModels
             } 
         }
         #endregion
-
 
         #region StudentFilterText : string - Текст фильтра студентов
 
@@ -205,7 +157,7 @@ namespace WPF_MVVM.ViewModels
 
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
-        private void OnStudentFiltred(object sender, FilterEventArgs e)
+        private void OnStudentFiltered(object sender, FilterEventArgs e)
         {
             if (!(e.Item is Student student))
             {
@@ -230,52 +182,13 @@ namespace WPF_MVVM.ViewModels
         }
 
         #endregion
-
-        #region SelectedCompositeValue : object - Выбранный непонятный элемент
-        /// <summary>
-        /// field Выбранный непонятный элемент
-        /// </summary>
-        private object _selectedCompositeValue;
-
-        /// <summary>
-        ///  attribute Выбранный непонятный элемент
-        /// </summary>
-        public object SelectedCompositeValue { get => _selectedCompositeValue; set =>Set(ref _selectedCompositeValue, value); }
-        #endregion
-
-        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("c:\\");
-
-
-        #region SelectedDirectory : DirectoryViewModel - Выбранная директория
-
-        /// <summary>
-        /// field Выбранная директория
-        /// </summary>
-        private DirectoryViewModel _SelectedDirectory;
-
-        /// <summary>
-        ///  attribute Выбранная директория
-        /// </summary>
-        public DirectoryViewModel SelectedDirectory
-        {
-            get => _SelectedDirectory;
-            set => _SelectedDirectory = value;
-        }
-
-        #endregion  
+      
 
         public MainWindowViewModel()
         {
             #region Commands
-
-            CloseApplicationCommand =
-                new RelayCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
-
-            ChangeTabIndexCommand = new RelayCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
-
-
+            CloseApplicationCommand = new CloseApplicationCommand();
             CreateNewGroupCommand = new RelayCommand(OnCreateNewGroupCommandExecuted, CanCreateNewGroupCommandExecute);
-
             DeleteGroupCommand = new RelayCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
             #endregion
 
@@ -310,17 +223,9 @@ namespace WPF_MVVM.ViewModels
                 Description = $"This is a group{i}"
                 }));
 
-            
-            var datalist = new List<object>();
-            datalist.Add("iffdk");
-                datalist.Add(49);
-            datalist.Add(Groups[1]);
-            datalist.Add(Groups[1].Students[3]);
+ 
 
-            CompositeCollection = datalist.ToArray();
-
-
-            _SelectedGroupStudents.Filter += OnStudentFiltred;
+            _SelectedGroupStudents.Filter += OnStudentFiltered;
 
             #endregion
         }
