@@ -17,6 +17,9 @@ namespace WPF_MVVM.ViewModels
     internal class MainWindowViewModel : BaseViewModel
     {
 
+        private readonly CountriesStatisticViewModel _countriesStatisticViewModel;
+
+        //------------------------------------------------------------------------------------------------------------
 
         #region SelectedPageIndex :int - Номер выбранной вкладки в статус баре
         /// <summary>
@@ -236,6 +239,8 @@ namespace WPF_MVVM.ViewModels
 
         public MainWindowViewModel()
         {
+            _countriesStatisticViewModel = new CountriesStatisticViewModel(this);
+
             #region Commands
             CloseApplicationCommand = new CloseApplicationCommand();
             CreateNewGroupCommand = new RelayCommand(OnCreateNewGroupCommandExecuted, CanCreateNewGroupCommandExecute);
