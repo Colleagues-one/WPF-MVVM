@@ -8,6 +8,7 @@
         xmlns:decanat="clr-namespace:WPF_MVVM.Models.Decanat"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"     
+        xmlns:view="clr-namespace:WPF_MVVM.Views"
         xmlns:local="clr-namespace:WPF_MVVM" 
         xmlns:viewModel="clr-namespace:WPF_MVVM.ViewModels"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
@@ -40,6 +41,9 @@
         </StatusBar>
 
         <TabControl SelectedIndex="{Binding SelectedPageIndex}">
+            <TabItem Header="Статистика">
+                <view:CountriesStatisticView/>
+            </TabItem>
             <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -48,17 +52,13 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Группы">
                        <DockPanel>
-                           <DockPanel.Resources>
-                               <CollectionViewSource x:Key="GroupsCollection"
-                                                     x:Name="GroupsCollection"
-                                                     Source="{Binding Groups}"
-                                                     Filter="GroupsCollection_OnFilter"/>
-                           </DockPanel.Resources>
                            <DockPanel DockPanel.Dock ="Top" Margin="0,3">
                                <font:ImageAwesome Height="12" Icon="Solid_Search" Margin="3,0"/>
-                                <TextBox Name ="GroupNameFilterText" TextChanged="OnGroupsFilterTextChanged"/>
+                                <TextBox Text="{Binding GroupFilterText, UpdateSourceTrigger=PropertyChanged}"/>
                            </DockPanel>
+
                            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
+                          
                                 <Button Style="{StaticResource PrimaryBtn}"
                                         Command="{Binding CreateNewGroupCommand}"/>
                                 <Button Style ="{StaticResource DangerBtn}" 
@@ -66,12 +66,11 @@
                                         CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                            
-                            <ListBox  ItemsSource="{Binding Source={StaticResource GroupsCollection}}" SelectedIndex="0"
+                            <ListBox  ItemsSource="{Binding ViewGroups}" SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}" 
                                      VirtualizingPanel.IsContainerVirtualizable="True"
                                      VirtualizingPanel.IsVirtualizing="True"
                                      VirtualizingPanel.VirtualizationMode="Recycling">
-                                    <!--Recycling использует только видимые элементы списков и снижает потребление памяти-->
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel/>
@@ -114,21 +113,17 @@
                                       HorizontalGridLinesBrush="Gray"
                                       VerticalGridLinesBrush="Gray"
                                       EnableRowVirtualization="True"
-                                      EnableColumnVirtualization="True">
+                                      EnableColumnVirtualization="True"
+                                      VirtualizingPanel.VirtualizationMode="Recycling">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="5*" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="5*" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="5*" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" Width="4*" IsReadOnly="True"/>
-                                <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}" Width="6*"/>-->
                                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="6*" />
                                 <DataGridTemplateColumn Header="Дата рождения" Width="7*">
-                                    <!--<DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate DataType="{x:Type decanat:Student}">
-                                            <DatePicker SelectedDate="{Binding Birthday}"></DatePicker>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>-->
-                                    <DataGridTemplateColumn.CellTemplate>
+                        
+                                <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="{x:Type decanat:Student}">
                                             <TextBlock Text="{Binding Birthday, StringFormat=dd.MM.yyyy}"></TextBlock>
                                         </DataTemplate>
@@ -142,9 +137,6 @@
                                 
                                 </DataGridTemplateColumn>
                                 
-
-                                <!--отсылка к родителю-->
-                                <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid}}" />-->
                             </DataGrid.Columns>
                             </DataGrid>
                         </DockPanel>
@@ -154,7 +146,6 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <!--<Image Source=""></Image>-->
                         <font:ImageAwesome Height="15" Width="15" Foreground="Red" Icon ="Regular_File"></font:ImageAwesome>
                         <TextBlock Text="Graf"></TextBlock>
                     </StackPanel>

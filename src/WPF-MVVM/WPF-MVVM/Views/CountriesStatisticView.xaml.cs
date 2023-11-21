@@ -1,5 +1,8 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPF_MVVM.Models.Decanat;
 
-namespace WPF_MVVM
+namespace WPF_MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для CountriesStatisticView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CountriesStatisticView : UserControl
     {
-        public MainWindow()
+        public CountriesStatisticView()
         {
             InitializeComponent();
         }

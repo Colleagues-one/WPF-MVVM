@@ -55,8 +55,6 @@ namespace WPF_MVVM.ViewModels
         public string Status { get => _status; set => Set(ref _status, value); }
         #endregion
 
-
-
         #region Commands 
 
         #region CloseAppCommand
@@ -108,6 +106,8 @@ namespace WPF_MVVM.ViewModels
 
 
         #region DecanatTEST
+ 
+
         public ObservableCollection<Group> Groups { get; }
 
         #region SelectedGroup Выбранная группа Тест
@@ -131,6 +131,7 @@ namespace WPF_MVVM.ViewModels
         }
         #endregion
 
+
         #region StudentFilterText : string - Текст фильтра студентов
 
         /// <summary>
@@ -147,7 +148,29 @@ namespace WPF_MVVM.ViewModels
             set
             {
                 if (!Set(ref _StudentFilterText, value)) return;
-                _SelectedGroupStudents.View.Refresh();
+                _SelectedGroupStudents.View?.Refresh();
+            }
+        }
+
+        #endregion
+
+        #region GroupFilterText : string - Текст фильтра групп
+
+        /// <summary>
+        /// field Текст фильтра групп
+        /// </summary>
+        private string _GroupFilterText;
+
+        /// <summary>
+        ///  attribute Текст фильтра групп
+        /// </summary>
+        public string GroupFilterText
+        {
+            get => _GroupFilterText;
+            set
+            {
+                if (!Set(ref _GroupFilterText, value)) return;
+                _CollectionViewGroups.View?.Refresh();
             }
         }
 
@@ -155,7 +178,13 @@ namespace WPF_MVVM.ViewModels
 
         private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
 
+        private readonly CollectionViewSource _CollectionViewGroups = new CollectionViewSource();
+
+       
+
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
+
+        public ICollectionView ViewGroups => _CollectionViewGroups?.View;
 
         private void OnStudentFiltered(object sender, FilterEventArgs e)
         {
@@ -181,8 +210,29 @@ namespace WPF_MVVM.ViewModels
             e.Accepted = false;
         }
 
+        private void OnGroupsFiltered(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Group group))
+            {
+                e.Accepted = false;
+                return;
+            }
+            var filter = _GroupFilterText;
+            if (string.IsNullOrWhiteSpace(filter)) return;
+
+            if (group.Name is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+            if (group.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)) return;
+            OnPropertyChanged(nameof(ViewGroups));
+            e.Accepted = false;
+            
+        }
+
         #endregion
-      
+
 
         public MainWindowViewModel()
         {
@@ -223,9 +273,9 @@ namespace WPF_MVVM.ViewModels
                 Description = $"This is a group{i}"
                 }));
 
- 
-
+            _CollectionViewGroups.Source = Groups;
             _SelectedGroupStudents.Filter += OnStudentFiltered;
+            _CollectionViewGroups.Filter += OnGroupsFiltered;
 
             #endregion
         }
