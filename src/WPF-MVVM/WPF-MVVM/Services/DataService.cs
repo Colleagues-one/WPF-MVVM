@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -20,77 +21,73 @@ namespace WPF_MVVM.Services
         private static async Task<Stream> GetDataStream()
         {
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(dataSourceURL, HttpCompletionOption.ResponseHeadersRead);
+            var response = await client.GetAsync(dataSourceURL, 
+                HttpCompletionOption.ResponseHeadersRead);
             return await response.Content.ReadAsStreamAsync();
         }
 
-        private static async Task<IEnumerable<string>> GetDataLines()
+        private static IEnumerable<string> GetDataLines()
         {
-            using var data_stream = await GetDataStream();
+            using var data_stream = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
             using var data_reader = new StreamReader(data_stream);
-
-            var lines = new List<string>();
             while (!data_reader.EndOfStream)
             {
-                var line = await data_reader.ReadLineAsync();
-                if (!string.IsNullOrWhiteSpace(line))
-                 lines.Add(line.Replace("Korea,", "Korea-"));
+                var line = data_reader.ReadLine();
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                yield return line
+                    .Replace("Korea,", "Korea-")
+                    .Replace("Bonaire,", "Bonaire -")
+                    .Replace("Helena,", "Helena -");
             }
-            return lines;
         }
 
-        private static async Task<DateTime[]> GetDates()
-        {
-            var lines = await GetDataLines();
-              return lines.First()
-                .Split(',')
-                .Skip(4)
-                .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
-                .ToArray();
+        private static DateTime[] GetDates() => GetDataLines()
+            .First()
+            .Split(',')
+            .Skip(4)
+            .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
+            .ToArray();
 
-
-        } 
-
-        private static async Task<IEnumerable<(string Province, string Country, (double Lat, double Lon) Place, int[] Counts)>> GetCountryData()
+        private static IEnumerable<(string Province, string Country, (double Lat, double Lon) Place, int[] Counts)>
+            GetCountryData()
         {
 
-            var lines = (await GetDataLines())
+            var lines = GetDataLines()
                 .Skip(1)
                 .Select(line => line.Split(','));
-            return lines.Select(row =>
+            foreach (var row in lines)
             {
                 var province = row[0].Trim();
                 var country_name = row[1].Trim(' ', '"');
-                var latitude = double.Parse(row[2]);
-                var longitude = double.Parse(row[3]);
-                var counts = row.Skip(5)
-                    .Select(int.Parse).ToArray();
-                return (province, country_name, (latitude, longitude), counts);
-            });
+                var latitude = (double.TryParse(row[2], CultureInfo.InvariantCulture, out double number))?number:default;
+                var longitude = (double.TryParse(row[3], CultureInfo.InvariantCulture, out double number2))?number2: default;
+                var counts = row.Skip(4)
+                    .Select(int.Parse)
+                    .ToArray();
+                yield return (province, country_name, (latitude, longitude), counts);
+            }
         }
 
-        public async Task<IEnumerable<CountryInfo>> GetData()
+        public IEnumerable<CountryInfo> GetData()
         {
-            var dates = await GetDates();
-            var data = (await GetCountryData()).GroupBy(d => d.Country);
-            var countries = new List<CountryInfo>();
+            var dates = GetDates();
+            var data = GetCountryData().GroupBy(d => d.Country);
 
             foreach (var country_info in data)
             {
-             
+
                 var country = new CountryInfo()
                 {
                     Name = country_info.Key,
-                    ProvinceCounts = country_info.Select(c=>new PlaceInfo()
+                    ProvinceCounts = country_info.Select(c => new PlaceInfo
                     {
                         Name = c.Province,
                         Location = new Point(c.Place.Lat, c.Place.Lon),
-                        Counts = dates.Zip(c.Counts, (date, count) => new ConfirmedCount{Date = date, Count = count})
+                        Counts = dates.Zip(c.Counts, (date, count) => new ConfirmedCount { Date = date, Count = count })
                     })
                 };
-                countries.Add(country);
+                yield return country;
             }
-            return countries;
         }
     }
 }

@@ -12,10 +12,11 @@ namespace WPF_MVVM_Console
 
         static void Main(string[] args)
         {
-        
-           var russia = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
-           Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia.Counts,(date,count) => $"{date:dd.MM.yyyy} - {count}")));
-            Console.ReadKey();
+            string a = "-14.3559";
+            int b = int.Parse(a,CultureInfo.InvariantCulture);
+            /*var russia = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
+            Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia.Counts,(date,count) => $"{date:dd.MM.yyyy} - {count}")));
+             Console.ReadKey();*/
         }
 
 
