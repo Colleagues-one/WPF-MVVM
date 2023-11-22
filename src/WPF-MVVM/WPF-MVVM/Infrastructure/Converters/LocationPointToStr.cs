@@ -10,15 +10,16 @@ using System.Windows.Data;
 
 namespace WPF_MVVM.Infrastructure.Converters
 {
-    internal class LocationPointToStr : IValueConverter
+    [ValueConversion(typeof(Point),typeof(string))]
+    internal class LocationPointToStr : BaseConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Point point)) return null;
             return $"Lat:{point.X}, lon:{point.Y}";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is string str)) return null;
 
@@ -34,8 +35,6 @@ namespace WPF_MVVM.Infrastructure.Converters
                     : default
             };
         }
-
-
     }
 }
 
