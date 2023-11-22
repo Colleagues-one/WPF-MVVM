@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
@@ -13,7 +14,7 @@ namespace WPF_MVVM.ViewModels
 {
     internal class CountriesStatisticViewModel : BaseViewModel
     {
-        private  MainWindowViewModel MainWindowViewModel { get; }
+        private MainWindowViewModel MainWindowViewModel { get; }
 
         private DataService _dataService;
 
@@ -37,7 +38,27 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
+        #region SelectedCountry : CountryInfo - Выбранная страна из списка стран
 
+        /// <summary>
+        /// field Выбранная страна из списка стран
+        /// </summary>
+        private CountryInfo _SelectedCountry;
+
+        /// <summary>
+        ///  attribute Выбранная страна из списка стран
+        /// </summary>
+        public CountryInfo SelectedCountry
+        {
+            get => _SelectedCountry;
+            set => Set(ref _SelectedCountry, value);
+        }
+
+        #endregion
+
+
+
+        #region Commands
 
         #region ICommand RefreshData (object) - Команда обновления данных
 
@@ -53,19 +74,51 @@ namespace WPF_MVVM.ViewModels
             Countries = _dataService.GetData();
         }
 
+        #endregion 
+
         #endregion
 
 
         public CountriesStatisticViewModel(MainWindowViewModel MainModel)
         {
 
-
             MainWindowViewModel = MainModel;
 
             _dataService = new DataService();
 
+
+            #region Commands
+
             RefreshDataCommand = new RelayCommand(OnRefreshDataCommandExecuted, CanRefreshDataCommandExecute);
+
+            #endregion
         }
 
+        /// <summary>
+        /// отладочный конструктор, используемый в процессе разработки в визуальном дизайнере
+        /// </summary>
+        public CountriesStatisticViewModel() : this(null)
+        {
+            if (!App.IsDesignMode)
+            {
+                throw new InvalidOperationException(
+                    "Вызов конструктора, не предназначенного для использования в обычном режиме!");
+            }
+
+            _Countries = Enumerable.Range(1, 10).Select(i => new CountryInfo
+            {
+                Name = $"Country {i}",
+                ProvinceCounts = Enumerable.Range(1, 10).Select(j => new PlaceInfo
+                {
+                    Name = $"Province{i}",
+                    Location = new Point(i, j),
+                    Counts = Enumerable.Range(1, 10).Select(k => new ConfirmedCount
+                    {
+                        Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
+                        Count = k
+                    }).ToArray()
+                }).ToArray()
+            }).ToArray();
+        }
     }
 }

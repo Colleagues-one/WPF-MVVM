@@ -42,7 +42,7 @@
 
         <TabControl SelectedIndex="{Binding SelectedPageIndex}">
             <TabItem Header="Статистика">
-                <view:CountriesStatisticView/>
+                <view:CountriesStatisticView DataContext="{Binding CountriesStatisticViewModel}"/>
             </TabItem>
             <TabItem Header="Students" Height="20" VerticalAlignment="Top" >
                 <Grid>

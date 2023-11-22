@@ -17,7 +17,7 @@ namespace WPF_MVVM.ViewModels
     internal class MainWindowViewModel : BaseViewModel
     {
 
-        private readonly CountriesStatisticViewModel _countriesStatisticViewModel;
+        public CountriesStatisticViewModel CountriesStatisticViewModel { get; }
 
         //------------------------------------------------------------------------------------------------------------
 
@@ -239,7 +239,7 @@ namespace WPF_MVVM.ViewModels
 
         public MainWindowViewModel()
         {
-            _countriesStatisticViewModel = new CountriesStatisticViewModel(this);
+            CountriesStatisticViewModel = new CountriesStatisticViewModel(this);
 
             #region Commands
             CloseApplicationCommand = new CloseApplicationCommand();
