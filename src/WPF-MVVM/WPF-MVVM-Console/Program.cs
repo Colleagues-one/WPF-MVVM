@@ -12,8 +12,16 @@ namespace WPF_MVVM_Console
 
         static void Main(string[] args)
         {
-            string a = "-14.3559";
-            int b = int.Parse(a,CultureInfo.InvariantCulture);
+            string str = "lat:-14.3559,lon:-489";
+
+            string[] comp = str.Split(',');
+
+            double lat = double.Parse(comp[0].Split(':')[1], CultureInfo.InvariantCulture);
+            double lon = double.Parse(comp[1].Split(':')[1], CultureInfo.InvariantCulture);
+
+
+            
+            
             /*var russia = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
             Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia.Counts,(date,count) => $"{date:dd.MM.yyyy} - {count}")));
              Console.ReadKey();*/
