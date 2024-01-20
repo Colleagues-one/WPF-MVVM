@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using OxyPlot;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
@@ -13,7 +14,7 @@ using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
-    
+    [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : BaseViewModel
     {
 

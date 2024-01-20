@@ -15,10 +15,11 @@
         xmlns:converters="clr-namespace:WPF_MVVM.Infrastructure.Converters"
         xmlns:common="clr-namespace:WPF_MVVM.Infrastructure.Common"
         Title="Анализ данных"
+        DataContext ="{viewModel:MainWindowViewModel}"
         Height="450" Width="800">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <viewModel:MainWindowViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
