@@ -10,13 +10,14 @@ using System.Windows.Markup;
 namespace WPF_MVVM.Infrastructure.Converters
 {
     [ValueConversion(typeof(double), typeof(double))]
+    [MarkupExtensionReturnType(typeof(LinearConverter))]//чтобы в Xaml были видны свойства
     internal class LinearConverter : BaseConverter
     {
         [ConstructorArgument("K")]
-        public double K { get; set; } = 1;
+        public double K { get; set; } = 10;
 
         [ConstructorArgument("B")]
-        public double B { get; set; }
+        public double B { get; set; } = 1;
 
 
         public LinearConverter() { }

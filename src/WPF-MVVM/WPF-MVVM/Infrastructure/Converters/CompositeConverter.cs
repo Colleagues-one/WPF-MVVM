@@ -5,14 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace WPF_MVVM.Infrastructure.Converters
 {
+    [MarkupExtensionReturnType(typeof(CompositeConverter))]//чтобы в Xaml были видны свойства
     internal class CompositeConverter : BaseConverter
     {
+        [ConstructorArgument("First")]
         public IValueConverter FirstConverter { get; set; }
+        [ConstructorArgument("Second")]
         public IValueConverter SecondConverter { get; set; }
 
+        public CompositeConverter()
+        {
+        }
+        public CompositeConverter(IValueConverter First) => FirstConverter = First;
+        
+        public CompositeConverter(IValueConverter First, IValueConverter Second):this(First) => SecondConverter = Second;
         public override object Convert(object value, Type type, object parameter, CultureInfo culture)
         {
             var result1 = FirstConverter?.Convert(value, type, parameter, culture) ?? value;

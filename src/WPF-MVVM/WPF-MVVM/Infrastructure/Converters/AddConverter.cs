@@ -9,31 +9,31 @@ using System.Windows.Markup;
 
 namespace WPF_MVVM.Infrastructure.Converters
 {
-    [ValueConversion(typeof(double), typeof(double))]
-    [MarkupExtensionReturnType(typeof(RatioConverter))]
-    internal class RatioConverter : BaseConverter
+    [MarkupExtensionReturnType(typeof(AddConverter))]
+    internal class AddConverter : BaseConverter
     {
-        [ConstructorArgument("K")] public double K { get; set; } = 1;
+        [ConstructorArgument("B")] public double B { get; set; } = 1;
 
-        public RatioConverter()
+        public AddConverter()
         {
         }
 
-        public RatioConverter(double K) => this.K = K;
+        public AddConverter(double b) => this.B = b;
 
 
         public override object Convert(object value, Type type, object parameter, CultureInfo culture)
         {
             if (value is null) return null;
             var x = System.Convert.ToDouble(value, culture);
-            return x * K;
+            return x + B;
         }
 
         public override object ConvertBack(object value, Type type, object parameter, CultureInfo culture)
         {
             if (value is null) return null;
-            var x = double.TryParse(value.ToString(), out double result)? result : default;
-            return x / K;
+            var x = double.TryParse(value.ToString(), out double result) ? result : default;
+            return x - B;
         }
     }
 }
+
