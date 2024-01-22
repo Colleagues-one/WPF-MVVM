@@ -33,6 +33,7 @@ namespace WPF_MVVM.ViewModels.Base
             return this;
         }
 
+        #region Расширение разметки для базовой модели
         private WeakReference _targetRef;
         private WeakReference _rootRef;
 
@@ -44,7 +45,8 @@ namespace WPF_MVVM.ViewModels.Base
             _targetRef = new WeakReference(target);
             _rootRef = new WeakReference(root);
 
-        }
+        } 
+        #endregion
 
         ~BaseViewModel() => Dispose(false); 
 
