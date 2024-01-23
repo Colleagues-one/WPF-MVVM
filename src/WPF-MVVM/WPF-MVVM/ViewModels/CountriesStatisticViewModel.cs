@@ -14,7 +14,7 @@ namespace WPF_MVVM.ViewModels
 {
     internal class CountriesStatisticViewModel : BaseViewModel
     {
-        private MainWindowViewModel MainWindowViewModel { get; }
+        public MainWindowViewModel MainWindowViewModel { get; internal set; }
 
         private DataService _dataService;
 
@@ -79,13 +79,9 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
-        public CountriesStatisticViewModel(MainWindowViewModel MainModel)
+        public CountriesStatisticViewModel(DataService service)
         {
-
-            MainWindowViewModel = MainModel;
-
-            _dataService = new DataService();
-
+            _dataService = service;
 
             #region Commands
 

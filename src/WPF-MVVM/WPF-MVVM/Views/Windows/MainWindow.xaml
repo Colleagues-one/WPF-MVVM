@@ -15,11 +15,14 @@
         xmlns:converters="clr-namespace:WPF_MVVM.Infrastructure.Converters"
         xmlns:common="clr-namespace:WPF_MVVM.Infrastructure.Common"
         Title="Анализ данных"
-        DataContext ="{viewModel:MainWindowViewModel}"
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
+        
         Height="450" Width="800">
-    <!--<Window.DataContext>
-        <viewModel:MainWindowViewModel/>
-    </Window.DataContext>-->
+    <!--DataContext ="{viewModel:MainWindowViewModel}" без инверсии зависимостей-->
+    <!--через биндинг это инверсия зависимостей через локатор, сервисы прописаны в app.xaml.cs !!!!антипаттерн!! обращение напрямую к сервисам-->
+
+
+
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">

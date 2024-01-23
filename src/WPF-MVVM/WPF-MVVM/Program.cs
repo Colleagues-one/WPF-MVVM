@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace WPF_MVVM
 {
-    public static class Program 
+    public static class Program
     {
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -32,6 +32,6 @@ namespace WPF_MVVM
                     .SetBasePath(App.CurrentDirectory)
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true))
                 .ConfigureServices(App.ConfigureServices);
-        }
     }
 }
+

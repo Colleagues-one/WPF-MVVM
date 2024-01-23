@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
+using Microsoft.Extensions.DependencyInjection;
 using OxyPlot;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
@@ -238,9 +239,13 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
         {
-            CountriesStatisticViewModel = new CountriesStatisticViewModel(this);
+            CountriesStatisticViewModel = Statistic;//инверсированная зависимость
+            Statistic.MainWindowViewModel = this;
+
+            /*CountriesStatisticViewModel = App.Host.Services.GetRequiredService<CountriesStatisticViewModel>(); антипаттерн */
+          //  CountriesStatisticViewModel = new CountriesStatisticViewModel(this); обычная зависимость
 
             #region Commands
             CloseApplicationCommand = new CloseApplicationCommand();
