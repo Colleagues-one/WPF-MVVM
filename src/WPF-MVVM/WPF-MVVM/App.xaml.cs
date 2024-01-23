@@ -15,17 +15,33 @@ namespace WPF_MVVM
     {
         public static bool IsDesignMode = true;
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             IsDesignMode = false;
 
+            var host = Host;
+
             base.OnStartup(e);
+
+            await host.RunAsync().ConfigureAwait(false);
             /*var service_test = new DataService();
             var countries = service_test.GetData().ToArray();*/
         }
 
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            var host = Host;
+            await host.StopAsync().ConfigureAwait(false);
+            host.Dispose();
+            _Host = null;
+        }
 
 
+        private static IHost _Host;
+
+        public static IHost Host => _Host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
