@@ -8,6 +8,7 @@ using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
 using WPF_MVVM.Services;
+using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
@@ -16,7 +17,7 @@ namespace WPF_MVVM.ViewModels
     {
         public MainWindowViewModel MainWindowViewModel { get; internal set; }
 
-        private DataService _dataService;
+        private readonly IDataService _dataService;
 
 
 
@@ -79,7 +80,7 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
-        public CountriesStatisticViewModel(DataService service)
+        public CountriesStatisticViewModel(IDataService service)
         {
             _dataService = service;
 

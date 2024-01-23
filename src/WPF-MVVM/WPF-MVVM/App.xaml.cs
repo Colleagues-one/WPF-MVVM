@@ -6,6 +6,7 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WPF_MVVM.Services;
+using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.ViewModels;
 
 namespace WPF_MVVM
@@ -47,8 +48,17 @@ namespace WPF_MVVM
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddSingleton<DataService>();
-            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<IDataService, DataService>();
+            //services.AddTransient<IDataService, DataService>(); создается когда требуется
+
+           /* services.AddScoped<IDataService, DataService>(); создание области для обработки сервиса
+            using (var scope = App.Host.Services.CreateScope())
+            {
+                var data = scope.ServiceProvider.GetRequiredService<IDataService>();
+            }*/
+                
+
+            services.AddSingleton<MainWindowViewModel>();//единичное создание
             services.AddSingleton<CountriesStatisticViewModel>();
 
         }
