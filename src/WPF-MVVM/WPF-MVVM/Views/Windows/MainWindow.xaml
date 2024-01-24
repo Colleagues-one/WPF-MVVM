@@ -204,9 +204,21 @@
             </TabItem>
             <TabItem Header="Gauge">
                 <Grid>
-                    <components:GaugeIndicator VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="80" Value="{Binding FuelCount}"/>
-                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,0,0,0" Height="30"
-                            Minimum="0" Maximum="100" Value="{Binding FuelCount}"></Slider>
+
+                    <Grid.Resources>
+                        <converters:ParametricMultiplicityValueConverter x:Key="Multiplicity" Value="{Binding Coefficient}"/>
+                    </Grid.Resources>
+                    <components:GaugeIndicator VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="80">
+                        <components:GaugeIndicator.Value>
+                            <Binding Path="FuelCount" Converter="{StaticResource Multiplicity}"/>
+                        </components:GaugeIndicator.Value>
+                    </components:GaugeIndicator>
+                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,10,0,0" 
+                            Minimum="0" Maximum="100" Value="{Binding FuelCount}"
+                            ToolTip="{Binding FuelCount}"></Slider>
+                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,50,0,0" 
+                            Minimum="-10" Maximum="10" SmallChange="0.1" Value="{Binding Coefficient}"
+                            ToolTip="{Binding Coefficient}"></Slider>
                 </Grid>
             </TabItem>
         </TabControl>

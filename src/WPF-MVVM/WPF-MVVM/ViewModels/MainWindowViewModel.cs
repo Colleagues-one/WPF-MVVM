@@ -241,8 +241,17 @@ namespace WPF_MVVM.ViewModels
 
 
 
-      
+        #region Coefficient : double - коэффициент
+        /// <summary>
+        /// field коэффициент
+        /// </summary>
+        private double _Coefficient = 1;
 
+        /// <summary>
+        ///  attribute коэффициент
+        /// </summary>
+        public double Coefficient { get => _Coefficient; set => Set(ref _Coefficient, value); }
+        #endregion
 
         #region FuelCount : double - Test of Gauge Indicator Value
 
