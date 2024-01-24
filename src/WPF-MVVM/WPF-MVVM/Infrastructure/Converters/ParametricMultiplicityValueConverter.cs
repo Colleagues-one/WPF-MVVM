@@ -22,7 +22,7 @@ namespace WPF_MVVM.Infrastructure.Converters
                 nameof(Value),
                 typeof(double),
                 typeof(ParametricMultiplicityValueConverter),
-                new PropertyMetadata(1.0,(d, e)=>{}));
+                new PropertyMetadata(1.0/*,(d, e)=>{}*/));
 
 
         /// <summary>
