@@ -37,8 +37,8 @@ namespace WPF_MVVM.ViewModels.Base
         private WeakReference _targetRef;
         private WeakReference _rootRef;
 
-        public object TargetObject => _targetRef.Target;
-        public object RootObject => _rootRef.Target;
+        public object TargetObject => _targetRef?.Target;
+        public object RootObject => _rootRef?.Target;
 
         protected virtual void OnInitialized(object target, object property, object root)
         {
