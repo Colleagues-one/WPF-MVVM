@@ -19,6 +19,7 @@ namespace WPF_MVVM.ViewModels
     internal class MainWindowViewModel : BaseViewModel
     {
 
+        
         public CountriesStatisticViewModel CountriesStatisticViewModel { get; }
 
         //------------------------------------------------------------------------------------------------------------
@@ -238,6 +239,28 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
+
+
+      
+
+
+        #region FuelCount : double - Test of Gauge Indicator Value
+
+        /// <summary>
+        /// field Test of Gauge Indicator Value
+        /// </summary>
+        private double _FuelCount;
+
+        /// <summary>
+        ///  attribute Test of Gauge Indicator Value
+        /// </summary>
+        public double FuelCount
+        {
+            get => _FuelCount;
+            set => Set(ref _FuelCount, value);
+        }
+
+        #endregion
 
         public MainWindowViewModel(CountriesStatisticViewModel Statistic)
         {

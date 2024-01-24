@@ -14,6 +14,7 @@
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:converters="clr-namespace:WPF_MVVM.Infrastructure.Converters"
         xmlns:common="clr-namespace:WPF_MVVM.Infrastructure.Common"
+        xmlns:components="clr-namespace:WPF_MVVM.Components"
         Title="Анализ данных"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         
@@ -200,6 +201,13 @@
 
 
 
+            </TabItem>
+            <TabItem Header="Gauge">
+                <Grid>
+                    <components:GaugeIndicator VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="80" Value="{Binding FuelCount}"/>
+                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,0,0,0" Height="30"
+                            Minimum="0" Maximum="100" Value="{Binding FuelCount}"></Slider>
+                </Grid>
             </TabItem>
         </TabControl>
     </DockPanel>
