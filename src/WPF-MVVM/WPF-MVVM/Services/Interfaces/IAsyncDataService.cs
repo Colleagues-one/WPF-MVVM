@@ -8,5 +8,7 @@ namespace WPF_MVVM.Services.Interfaces
 {
     internal interface IAsyncDataService
     {
+
+        public string GetResult(DateTime dateTime);
     }
 }

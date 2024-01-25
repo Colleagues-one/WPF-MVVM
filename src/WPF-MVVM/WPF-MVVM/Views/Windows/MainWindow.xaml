@@ -221,6 +221,18 @@
                             ToolTip="{Binding Coefficient}"></Slider>
                 </Grid>
             </TabItem>
+            <TabItem Header="Async">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <UniformGrid DockPanel.Dock="Left" HorizontalAlignment="Left" Rows="1" Margin="5">
+                            <Button Margin="5" Padding="20,5" Content="Start" Command="{Binding StartProcessCommand}"></Button>
+                            <Button Margin="5" Padding="20,5" Content="Stop" Command="{Binding StopProcessCommand}"></Button>
+                        </UniformGrid>
+                        <ProgressBar DockPanel.Dock="Top" Height="20" Margin="10"/>
+                    </DockPanel>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding DataValue}" FontSize="60"></TextBlock>
+                </DockPanel>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

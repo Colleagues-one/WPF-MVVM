@@ -9,5 +9,13 @@ namespace WPF_MVVM.Services
 {
     internal class AsyncDataService : IAsyncDataService
     {
+
+        private const int SLEEPTIME = 5000;
+        public string GetResult(DateTime dateTime)
+        {
+            Thread.Sleep(SLEEPTIME);
+
+            return $"Result value {dateTime}";
+        }
     }
 }

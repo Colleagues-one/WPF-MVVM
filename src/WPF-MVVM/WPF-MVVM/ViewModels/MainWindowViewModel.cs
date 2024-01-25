@@ -39,7 +39,6 @@ namespace WPF_MVVM.ViewModels
         {
             get => _selectedPageIndex; set => Set(ref _selectedPageIndex, value);
         }
-        
 
         #endregion
 
@@ -64,58 +63,56 @@ namespace WPF_MVVM.ViewModels
         public string Status { get => _status; set => Set(ref _status, value); }
         #endregion
 
-        #region Commands 
-
-        #region CloseAppCommand
-        public CloseApplicationCommand CloseApplicationCommand { get; }
-
-        #endregion
-
-        #region ICommand CreateNewGroup - Creating new group test
+        #region Coefficient : double - коэффициент
         /// <summary>
-        /// Creating new group test
+        /// field коэффициент
         /// </summary>
-        public ICommand CreateNewGroupCommand { get; }
+        private double _Coefficient = 1;
 
-        private bool CanCreateNewGroupCommandExecute(object parameter) => true;
-
-        private void OnCreateNewGroupCommandExecuted(object parameter)
-        {
-            var group_max_index = Groups.Count + 1;
-            var new_group = new Group
-            {
-                Name = $"Группа {group_max_index}",
-                Students = new ObservableCollection<Student>()
-            };
-            Groups.Add(new_group);
-        }
-        #endregion       
-
-        #region ICommand DeleteGroup - Deleting group
         /// <summary>
-        /// Deleting group
+        ///  attribute коэффициент
         /// </summary>
-        public ICommand DeleteGroupCommand { get; }
+        public double Coefficient { get => _Coefficient; set => Set(ref _Coefficient, value); }
+        #endregion
 
-        private bool CanDeleteGroupCommandExecute(object parameter) => parameter is Group group && Groups.Contains(group);
+        #region FuelCount : double - Test of Gauge Indicator Value
 
-        private void OnDeleteGroupCommandExecuted(object parameter)
+        /// <summary>
+        /// field Test of Gauge Indicator Value
+        /// </summary>
+        private double _FuelCount;
+
+        /// <summary>
+        ///  attribute Test of Gauge Indicator Value
+        /// </summary>
+        public double FuelCount
         {
-            if (!(parameter is Group group)) return;
-            int group_index = Groups.IndexOf(group);
-            Groups.Remove(group);
-            if(group_index < Groups.Count)
-            {
-                SelectedGroup = Groups[group_index];
-            }
+            get => _FuelCount;
+            set => Set(ref _FuelCount, value);
         }
-        #endregion
 
         #endregion
 
+        #region DataValue : string - Результат длительной ассинхронной операции
+
+        /// <summary>
+        /// field Результат длительной ассинхронной операции
+        /// </summary>
+        private string _DataValue;
+
+        /// <summary>
+        ///  attribute Результат длительной ассинхронной операции
+        /// </summary>
+        public string DataValue
+        {
+            get => _DataValue;
+            private set => Set(ref _DataValue,value);
+        }
+
+        #endregion
 
         #region DecanatTEST
- 
+
 
         public ObservableCollection<Group> Groups { get; }
 
@@ -133,10 +130,10 @@ namespace WPF_MVVM.ViewModels
             get => _selectedGroup;
             set
             {
-                if (!Set(ref _selectedGroup, value) ) return;
+                if (!Set(ref _selectedGroup, value)) return;
                 _SelectedGroupStudents.Source = value?.Students;
                 OnPropertyChanged(nameof(SelectedGroupStudents));
-            } 
+            }
         }
         #endregion
 
@@ -189,7 +186,7 @@ namespace WPF_MVVM.ViewModels
 
         private readonly CollectionViewSource _CollectionViewGroups = new CollectionViewSource();
 
-       
+
 
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
@@ -237,45 +234,97 @@ namespace WPF_MVVM.ViewModels
             if (group.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)) return;
             OnPropertyChanged(nameof(ViewGroups));
             e.Accepted = false;
-            
+
         }
 
         #endregion
 
+        #region Commands 
 
+        #region CloseAppCommand
+        public CloseApplicationCommand CloseApplicationCommand { get; }
 
-        #region Coefficient : double - коэффициент
-        /// <summary>
-        /// field коэффициент
-        /// </summary>
-        private double _Coefficient = 1;
-
-        /// <summary>
-        ///  attribute коэффициент
-        /// </summary>
-        public double Coefficient { get => _Coefficient; set => Set(ref _Coefficient, value); }
         #endregion
 
-        #region FuelCount : double - Test of Gauge Indicator Value
-
+        #region ICommand CreateNewGroup - Creating new group test
         /// <summary>
-        /// field Test of Gauge Indicator Value
+        /// Creating new group test
         /// </summary>
-        private double _FuelCount;
+        public ICommand CreateNewGroupCommand { get; }
 
-        /// <summary>
-        ///  attribute Test of Gauge Indicator Value
-        /// </summary>
-        public double FuelCount
+        private bool CanCreateNewGroupCommandExecute(object parameter) => true;
+
+        private void OnCreateNewGroupCommandExecuted(object parameter)
         {
-            get => _FuelCount;
-            set => Set(ref _FuelCount, value);
+            var group_max_index = Groups.Count + 1;
+            var new_group = new Group
+            {
+                Name = $"Группа {group_max_index}",
+                Students = new ObservableCollection<Student>()
+            };
+            Groups.Add(new_group);
+        }
+        #endregion       
+
+        #region ICommand DeleteGroup - Deleting group
+        /// <summary>
+        /// Deleting group
+        /// </summary>
+        public ICommand DeleteGroupCommand { get; }
+
+        private bool CanDeleteGroupCommandExecute(object parameter) => parameter is Group group && Groups.Contains(group);
+
+        private void OnDeleteGroupCommandExecuted(object parameter)
+        {
+            if (!(parameter is Group group)) return;
+            int group_index = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if (group_index < Groups.Count)
+            {
+                SelectedGroup = Groups[group_index];
+            }
+        }
+        #endregion
+
+        #region ICommand StartProcess (object) - Запуск процесса
+
+        /// <summary>
+        /// Запуск процесса
+        /// </summary>
+        public ICommand StartProcessCommand { get; }
+
+        private bool CanStartProcessCommandExecute(object parameter) => true;
+
+        private void OnStartProcessCommandExecuted(object parameter)
+        {
+            _DataValue = AsyncData.GetResult(DateTime.Now);
         }
 
         #endregion
+
+        #region ICommand StopProcess (object) - Остановка процесса
+
+        /// <summary>
+        /// Остановка процесса
+        /// </summary>
+        public ICommand StopProcessCommand { get; }
+
+        private bool CanStopProcessCommandExecute(object parameter) => true;
+
+        private void OnStopProcessCommandExecuted(object parameter)
+        {
+
+        }
+
+        #endregion
+
+        #endregion
+
 
         public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData)
         {
+            AsyncData = asyncData;
+
             CountriesStatisticViewModel = Statistic;//инверсированная зависимость
             Statistic.MainWindowViewModel = this;
 
@@ -286,6 +335,9 @@ namespace WPF_MVVM.ViewModels
             CloseApplicationCommand = new CloseApplicationCommand();
             CreateNewGroupCommand = new RelayCommand(OnCreateNewGroupCommandExecuted, CanCreateNewGroupCommandExecute);
             DeleteGroupCommand = new RelayCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
+            StartProcessCommand = new RelayCommand(OnStartProcessCommandExecuted, CanStartProcessCommandExecute);
+            StopProcessCommand = new RelayCommand(OnStopProcessCommandExecuted, CanStopProcessCommandExecute);
+
             #endregion
 
             #region Graf
