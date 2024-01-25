@@ -11,6 +11,7 @@ using OxyPlot;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
 using WPF_MVVM.Models.Decanat;
+using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
@@ -21,6 +22,8 @@ namespace WPF_MVVM.ViewModels
 
         
         public CountriesStatisticViewModel CountriesStatisticViewModel { get; }
+
+        public readonly IAsyncDataService AsyncData;
 
         //------------------------------------------------------------------------------------------------------------
 
@@ -271,7 +274,7 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData)
         {
             CountriesStatisticViewModel = Statistic;//инверсированная зависимость
             Statistic.MainWindowViewModel = this;

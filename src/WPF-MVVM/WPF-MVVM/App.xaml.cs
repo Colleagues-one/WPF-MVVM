@@ -48,7 +48,8 @@ namespace WPF_MVVM
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddSingleton<IDataService, DataService>();
+            //перенесено в serviceRegistration
+            //services.AddSingleton<IDataService, DataService>();
             //services.AddTransient<IDataService, DataService>(); создается когда требуется
 
            /* services.AddScoped<IDataService, DataService>(); создание области для обработки сервиса
@@ -57,9 +58,12 @@ namespace WPF_MVVM
                 var data = scope.ServiceProvider.GetRequiredService<IDataService>();
             }*/
                 
+            //перенесено в 
+            //services.AddSingleton<MainWindowViewModel>();//единичное создание
+            //services.AddSingleton<CountriesStatisticViewModel>();
 
-            services.AddSingleton<MainWindowViewModel>();//единичное создание
-            services.AddSingleton<CountriesStatisticViewModel>();
+
+            services.RegisterServices().RegisterViewModels();
 
         }
 
