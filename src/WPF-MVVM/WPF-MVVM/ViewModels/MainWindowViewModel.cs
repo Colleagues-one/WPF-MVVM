@@ -297,7 +297,12 @@ namespace WPF_MVVM.ViewModels
 
         private void OnStartProcessCommandExecuted(object parameter)
         {
-            _DataValue = AsyncData.GetResult(DateTime.Now);
+            new Thread(ComputeValue).Start();
+        }
+
+        private void ComputeValue()
+        {
+            DataValue = AsyncData.GetResult(DateTime.Now);
         }
 
         #endregion
