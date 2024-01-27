@@ -17,9 +17,15 @@ namespace WPF_MVVM.ViewModels
 
         #region Enabled
 
-        private bool _enabled;
-       
-        public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
+        public bool Enabled
+        {
+            get => _server.Enabled;
+            set
+            {
+                _server.Enabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -31,11 +37,12 @@ namespace WPF_MVVM.ViewModels
         /// </summary>
         public ICommand StartCommand => new RelayCommand(OnStartCommandExecuted, CanStartCommandExecute);
 
-        private bool CanStartCommandExecute(object parameter) => !_enabled;
+        private bool CanStartCommandExecute(object parameter) => !Enabled;
 
         private void OnStartCommandExecuted(object parameter)
         {
-            Enabled = true;
+            _server.Start();
+            OnPropertyChanged(nameof(Enabled));
         }
 
         #endregion
@@ -47,11 +54,12 @@ namespace WPF_MVVM.ViewModels
         /// </summary>
         public ICommand StopCommand => new RelayCommand(OnStopCommandExecuted, CanStopCommandExecute);
 
-        private bool CanStopCommandExecute(object parameter) => _enabled;
+        private bool CanStopCommandExecute(object parameter) => Enabled;
 
         private void OnStopCommandExecuted(object parameter)
         {
-            Enabled = false;
+            _server.Stop();
+            OnPropertyChanged(nameof(Enabled));
         }
 
         #endregion
