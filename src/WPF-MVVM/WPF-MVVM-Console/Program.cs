@@ -11,7 +11,7 @@ namespace WPF_MVVM_Console
          
         static void Main(string[] args)
         {
-            var clockThread = new Thread(ThreadMethod);
+            /*var clockThread = new Thread(ThreadMethod);
             clockThread.IsBackground = true;
             clockThread.Priority = ThreadPriority.AboveNormal;
        
@@ -42,7 +42,39 @@ namespace WPF_MVVM_Console
                 clockThread.Interrupt();
             }
 
-            Console.WriteLine(String.Join(", ", values));
+            Mutex mutex = new Mutex();
+            Semaphore semaphore = new Semaphore(0, 10);
+            semaphore.WaitOne();
+            semaphore.Release();*/
+
+
+            ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+            AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+
+
+            EventWaitHandle eventWaitHandle = manualResetEvent;
+            EventWaitHandle eventWaitHandle2 = autoResetEvent;
+
+
+            var testThreads = new Thread[10];
+            for (int i = 0; i < testThreads.Length; i++)
+            {
+                var localI = i;
+                testThreads[i] = new Thread(() => {
+                    Console.WriteLine("Поток id:{0} - стартовал", Thread.CurrentThread.ManagedThreadId);
+
+                    eventWaitHandle.WaitOne();
+
+                    Console.WriteLine("value:{0}", localI);
+                    Console.WriteLine("Поток id:{0} - завершился", Thread.CurrentThread.ManagedThreadId);
+                });
+                testThreads[i].Start();
+            }
+
+            Console.ReadLine();
+            
+            eventWaitHandle.Set();
+            // Console.WriteLine(String.Join(", ", values));
         }
 
 
