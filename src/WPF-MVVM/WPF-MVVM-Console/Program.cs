@@ -1,74 +1,108 @@
-﻿using System.Globalization;
-using System.Net;
-using System.Runtime.InteropServices.JavaScript;
-using static System.Net.WebRequestMethods;
+﻿using System;
+using System.Threading;
+using System.Collections.Concurrent;
 
 namespace WPF_MVVM_Console
 {
     internal class Program
     {
-        private const string dataURL =
-            @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
+        private static bool THREAD_UPDATE = true;
+         
         static void Main(string[] args)
         {
-            string str = "lat:-14.3559,lon:-489";
+            WebServerTest.Run();
 
-            string[] comp = str.Split(',');
+            /*var clockThread = new Thread(ThreadMethod);
+            clockThread.IsBackground = true;
+            clockThread.Priority = ThreadPriority.AboveNormal;
+       
+            var values = new List<int>();
+            var threads = new Thread[10];
 
-            double lat = double.Parse(comp[0].Split(':')[1], CultureInfo.InvariantCulture);
-            double lon = double.Parse(comp[1].Split(':')[1], CultureInfo.InvariantCulture);
-
-
-            
-            
-            /*var russia = GetData().First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
-            Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia.Counts,(date,count) => $"{date:dd.MM.yyyy} - {count}")));
-             Console.ReadKey();*/
-        }
-
-
-        private static async Task<Stream> GetDataStream()
-        {
-            HttpClient client = new HttpClient();
-            var response = await client.GetAsync(dataURL, HttpCompletionOption.ResponseHeadersRead);
-            return await response.Content.ReadAsStreamAsync();
-        }
-
-        private static IEnumerable<string> GetDataLines()
-        {
-            using var data_stream = GetDataStream().Result;
-            using var data_reader = new StreamReader(data_stream);
-            while (!data_reader.EndOfStream)
+            for (int i = 0; i < threads.Length; i++)
             {
-                var line = data_reader.ReadLine();
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                yield return line.Replace("Korea,", "Korea-");
+                threads[i] = new Thread(()=>
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        lock (values)
+                        {
+                            values.Add(Thread.CurrentThread.ManagedThreadId);
+                        }
+                    }
+                });
+            }
+
+            foreach (var thread in threads)
+            {
+                thread.Start();
+            }
+
+            if (!clockThread.Join(100))
+            {
+                clockThread.Interrupt();
+            }
+
+            Mutex mutex = new Mutex();
+            Semaphore semaphore = new Semaphore(0, 10);
+            semaphore.WaitOne();
+            semaphore.Release();*/
+
+
+           /* ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+            AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+
+
+            EventWaitHandle eventWaitHandle = manualResetEvent;
+            EventWaitHandle eventWaitHandle2 = autoResetEvent;
+
+
+            var testThreads = new Thread[10];
+            for (int i = 0; i < testThreads.Length; i++)
+            {
+                var localI = i;
+                testThreads[i] = new Thread(() => {
+                    Console.WriteLine("Поток id:{0} - стартовал", Thread.CurrentThread.ManagedThreadId);
+
+                    eventWaitHandle.WaitOne();
+
+                    Console.WriteLine("value:{0}", localI);
+                    Console.WriteLine("Поток id:{0} - завершился", Thread.CurrentThread.ManagedThreadId);
+                });
+                testThreads[i].Start();
+            }
+
+            Console.ReadLine();
+            
+            eventWaitHandle.Set();*/
+            // Console.WriteLine(String.Join(", ", values));
+        }
+
+
+        public static void ThreadMethod()
+        {
+            while (THREAD_UPDATE)
+            {
+                Console.Title = DateTime.Now.ToString();
             }
         }
 
-        private static DateTime[] GetDates() => GetDataLines()
-            .First()
-            .Split(',')
-            .Skip(4)
-            .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
-            .ToArray();
 
-        private static IEnumerable<(string Country, string Province, int[] Counts)> GetData()
+        public static void PrintMessage(string msg, int count, int timeSleep)
         {
-            
-            var lines = GetDataLines()
-                .Skip(1)
-                .Select(line => line.Split(','));
-            foreach (var row in lines)
+            for (int i = 0; i < count; i++)
             {
-                var province = row[0].Trim();
-                var country_name = row[1].Trim(' ', '"');
-                var counts = row.Skip(5)
-                    .Select(int.Parse).ToArray();
-                yield return(country_name, province, counts);
+                Console.WriteLine(msg);
+                Thread.Sleep(timeSleep);
             }
         }
+
+        private static void CheckThread()
+        {
+            Console.WriteLine("{0}:{1}", Thread.CurrentThread.ManagedThreadId, Thread.CurrentThread.Name);
+        }
+        
     }
 }
 

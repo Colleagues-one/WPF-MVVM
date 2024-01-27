@@ -1,15 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>WPF_MVVM_Console</RootNamespace>
+    <RootNamespace>WPF_MVVM.Web</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WPF-MVVM.Web\WPF-MVVM.Web.csproj" />
-  </ItemGroup>
 
 </Project>
