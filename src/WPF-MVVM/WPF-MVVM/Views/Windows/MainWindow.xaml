@@ -30,6 +30,14 @@
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Command="{Binding CloseApplicationCommand}"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Service" DataContext="{Binding WebServer}">
+                <MenuItem Header="Web-Server">
+                    <MenuItem Header="Enabled" IsCheckable="True" IsChecked="{Binding Enabled}"/>
+                    <Separator/>
+                    <MenuItem Header="On" Command="{Binding StartCommand}"/>
+                    <MenuItem Header="Off" Command="{Binding StopCommand}"/>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Name="MenuHelp" Header="Help">
                 <MenuItem Name="MenuHelpAbout" Header="About"></MenuItem>
             </MenuItem>

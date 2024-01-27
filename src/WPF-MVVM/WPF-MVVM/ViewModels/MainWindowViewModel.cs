@@ -25,6 +25,8 @@ namespace WPF_MVVM.ViewModels
 
         public readonly IAsyncDataService AsyncData;
 
+        public WebServerViewModel WebServer { get; }
+
         //------------------------------------------------------------------------------------------------------------
 
         #region SelectedPageIndex :int - Номер выбранной вкладки в статус баре
@@ -326,8 +328,9 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData)
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData, WebServerViewModel webServer)
         {
+            this.WebServer = webServer;
             AsyncData = asyncData;
 
             CountriesStatisticViewModel = Statistic;//инверсированная зависимость
@@ -383,6 +386,6 @@ namespace WPF_MVVM.ViewModels
             #endregion
         }
 
-       
+        
     }
 }

@@ -13,6 +13,7 @@ namespace WPF_MVVM.ViewModels
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
+            services.AddSingleton<WebServerViewModel>();
             return services;
         }
     }
