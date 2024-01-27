@@ -5,19 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
     internal class WebServerViewModel:BaseViewModel
     {
+
+        private readonly IWebServerService _server;
+
         #region Enabled
 
         private bool _enabled;
+       
         public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
 
         #endregion
-
 
         #region ICommand Start (object) - Запуск сервера
 
@@ -36,7 +40,6 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
-
         #region ICommand Stop (object) - Остановка сервера
 
         /// <summary>
@@ -52,5 +55,10 @@ namespace WPF_MVVM.ViewModels
         }
 
         #endregion
+
+        public WebServerViewModel(IWebServerService server)
+        {
+            _server = server;
+        }
     }
 }
