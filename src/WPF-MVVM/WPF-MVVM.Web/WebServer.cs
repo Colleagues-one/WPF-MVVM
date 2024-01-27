@@ -48,7 +48,7 @@ namespace WPF_MVVM.Web
             if (!_enabled) return;
             lock (_syncRoot)
             {
-                if (_enabled) return;
+                if (!_enabled) return;
                 _httpListener = null;
                 _enabled = false;
             }
@@ -60,18 +60,21 @@ namespace WPF_MVVM.Web
              var listener = _httpListener;
             listener.Start();
           
+            HttpListenerContext context = null;
             while (_enabled)
             {
-                var receivedContext = await listener.GetContextAsync().ConfigureAwait(false);
-                ProcessRequest(receivedContext);
+                var getContextTask = listener.GetContextAsync();
+                if (context != null)
+                    ProcessRequestAsync(context);
+                context = await getContextTask.ConfigureAwait(false);
             }
 
             listener.Stop();
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        private async void ProcessRequestAsync(HttpListenerContext context)
         {
-            RequestReceiver?.Invoke(this, new RequestReceiverEventArgs(context));
+            await Task.Run(() => RequestReceiver?.Invoke(this, new RequestReceiverEventArgs(context)));
         }
     }
     public class RequestReceiverEventArgs : EventArgs

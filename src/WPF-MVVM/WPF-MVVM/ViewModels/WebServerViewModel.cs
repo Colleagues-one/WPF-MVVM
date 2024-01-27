@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Services.Interfaces;
@@ -43,6 +44,7 @@ namespace WPF_MVVM.ViewModels
         {
             _server.Start();
             OnPropertyChanged(nameof(Enabled));
+            
         }
 
         #endregion
@@ -60,6 +62,7 @@ namespace WPF_MVVM.ViewModels
         {
             _server.Stop();
             OnPropertyChanged(nameof(Enabled));
+           
         }
 
         #endregion

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using WPF_MVVM.Web;
 
 namespace WPF_MVVM.Services.Interfaces
@@ -25,7 +26,7 @@ namespace WPF_MVVM.Services.Interfaces
         {
             using (var writter = new StreamWriter(e.Context.Response.OutputStream))
             {
-               writter.WriteLine("WPF-MVVM Application");          
+               writter.WriteLine("WPF-MVVM Application " + DateTime.Now);          
             }
         }
     }
