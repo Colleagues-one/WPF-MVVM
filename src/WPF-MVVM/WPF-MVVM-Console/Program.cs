@@ -11,6 +11,8 @@ namespace WPF_MVVM_Console
          
         static void Main(string[] args)
         {
+            WebServerTest.Run();
+
             /*var clockThread = new Thread(ThreadMethod);
             clockThread.IsBackground = true;
             clockThread.Priority = ThreadPriority.AboveNormal;
@@ -48,7 +50,7 @@ namespace WPF_MVVM_Console
             semaphore.Release();*/
 
 
-            ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+           /* ManualResetEvent manualResetEvent = new ManualResetEvent(false);
             AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
 
@@ -73,7 +75,7 @@ namespace WPF_MVVM_Console
 
             Console.ReadLine();
             
-            eventWaitHandle.Set();
+            eventWaitHandle.Set();*/
             // Console.WriteLine(String.Join(", ", values));
         }
 

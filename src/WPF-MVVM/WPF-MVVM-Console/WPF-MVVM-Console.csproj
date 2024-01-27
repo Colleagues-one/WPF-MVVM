@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WPF-MVVM.Web\WPF-MVVM.Web.csproj" />
+  </ItemGroup>
+
 </Project>

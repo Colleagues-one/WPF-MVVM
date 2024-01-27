@@ -6,7 +6,7 @@ namespace WPF_MVVM.Web
 {
     public class WebServer
     {
-        private event EventHandler<RequestReceiverEventArgs> RequestReceiver; 
+        public event EventHandler<RequestReceiverEventArgs> RequestReceiver; 
         private HttpListener? _httpListener;
         private readonly int _port;
         private bool _enabled;
@@ -36,11 +36,11 @@ namespace WPF_MVVM.Web
             {
                 if (_enabled) return;
                 _httpListener = new HttpListener();
-                _httpListener.Prefixes.Add($"http://*:{_port}");
-                _httpListener.Prefixes.Add($"http://+:{_port}");
+                _httpListener.Prefixes.Add($"http://*:{_port}/");
+                _httpListener.Prefixes.Add($"http://+:{_port}/");
                 _enabled = true;
+                ListenAsync();
             }
-            //ListenAsync();
         }
 
         public void Stop()
@@ -57,7 +57,7 @@ namespace WPF_MVVM.Web
         private async void ListenAsync()
         {
             if(_httpListener == null) return;
-            var listener = _httpListener;
+             var listener = _httpListener;
             listener.Start();
           
             while (_enabled)
