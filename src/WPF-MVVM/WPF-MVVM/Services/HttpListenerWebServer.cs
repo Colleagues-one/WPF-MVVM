@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF_MVVM.Web;
 
 namespace WPF_MVVM.Services.Interfaces
 {
     internal class HttpListenerWebServer : IWebServerService
     {
-        public bool Enabled { get; set; }
-        public void Start()
+        private WebServer _server = new WebServer(8080);
+        public bool Enabled { get=>_server.Enabled; set => _server.Enabled = value; }
+        public void Start()=>_server.Start();
+
+        public void Stop()=>_server.Stop();
+
+        public HttpListenerWebServer()
         {
-            throw new NotImplementedException();
+            _server.RequestReceiver += OnRequestReceived;
         }
 
-        public void Stop()
+        private void OnRequestReceived(object sender, RequestReceiverEventArgs e)
         {
-            throw new NotImplementedException();
+            using (var writter = new StreamWriter(e.Context.Response.OutputStream))
+            {
+               writter.WriteLine("WPF-MVVM Application");          
+            }
         }
     }
 }

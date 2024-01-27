@@ -26,6 +26,11 @@
 
 
 	<ItemGroup>
+	  <ProjectReference Include="..\WPF-MVVM.Web\WPF-MVVM.Web.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
 	  <None Update="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
