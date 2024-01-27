@@ -6,13 +6,14 @@ namespace WPF_MVVM_Console
 {
     internal class Program
     {
+
+        private static bool THREAD_UPDATE = true;
          
         static void Main(string[] args)
         {
-            /*int count = 5;
-            string message = "Hello World!";
-            int timeSleep = 100;
-            new Thread(()=>PrintMessage(message,count,timeSleep)) { IsBackground = true }.Start();*/
+            var clockThread = new Thread(ThreadMethod);
+            clockThread.IsBackground = true;
+            clockThread.Priority = ThreadPriority.AboveNormal;
        
             var values = new List<int>();
             var threads = new Thread[10];
@@ -36,11 +37,22 @@ namespace WPF_MVVM_Console
                 thread.Start();
             }
 
+            if (!clockThread.Join(100))
+            {
+                clockThread.Interrupt();
+            }
+
             Console.WriteLine(String.Join(", ", values));
         }
 
 
-
+        public static void ThreadMethod()
+        {
+            while (THREAD_UPDATE)
+            {
+                Console.Title = DateTime.Now.ToString();
+            }
+        }
 
 
         public static void PrintMessage(string msg, int count, int timeSleep)
