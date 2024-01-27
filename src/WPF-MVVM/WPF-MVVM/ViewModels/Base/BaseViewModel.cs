@@ -68,11 +68,11 @@ namespace WPF_MVVM.ViewModels.Base
 
         private bool _disposed;
 
+        // освобождение управляемых ресурсов
         protected virtual void Dispose(bool disposing)
         {
             if (!disposing || _disposed) return;
             _disposed = true;
-            // освобождение управляемых ресурсов
         }
     }
 }
