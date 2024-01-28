@@ -21,19 +21,18 @@ namespace WPF_MVVM_Test
         {
             _myValues.Add(value);
         }
+
+        public void EditValue(int index, int value)
+        {
+            if (index >= 0 && index < _myValues.Count && value != _myValues[index]) _myValues[index] = value;
+        }
+
         public void RemoveValue(int index)
         {
             if (index >= 0 && index < _myValues.Count) _myValues.RemoveAt(index);
         }
 
-        public void ChangeSelectedItem(int index, int value)
-        {
-            if(index >=0 && index < _myValues.Count) _myValues[index] = value;
-        }
-
         public int Sum => MyPublicValues.Sum(); 
-
-
 
     }
 }

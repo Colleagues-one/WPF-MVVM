@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using WPF_MVVM_Test.Base;
 
@@ -49,11 +50,14 @@ namespace WPF_MVVM_Test
             get => _SelectedItem;
             set
             {
+                if (_SelectedItem != value)
+                {
+                    _model.EditValue(_SelectedItem, MyValues[_SelectedItem]);
+                }
                 Set(ref _SelectedItem, value);
                 if(SelectedItem >=0 )
-                Item = MyValues[_SelectedItem];
+                    Item = MyValues[_SelectedItem];
             }
-
         }
 
         #endregion
@@ -71,17 +75,10 @@ namespace WPF_MVVM_Test
         public int? Item
         {
             get => _Item;
-            set
-            {
-                Set(ref _Item, value);
-                
-            }
-
+            set { Set(ref _Item, value); }
         }
 
         #endregion
-
-
 
         #region ICommand AddItem (int) - Adding new item in collection
 
@@ -92,13 +89,13 @@ namespace WPF_MVVM_Test
 
         private bool CanAddItemCommandExecute(object parameter)
         {
-            if(parameter == null) return false;
+            if (parameter == null) return false;
             if (int.TryParse(parameter.ToString(), out int number) && number != 0)
             {
                 Item = number;
                 return true;
             }
-            else return false;
+            return false;
         }
 
         private void OnAddItemCommandExecuted(object parameter)
@@ -106,7 +103,7 @@ namespace WPF_MVVM_Test
             int number = Convert.ToInt32(parameter);
             _model.AddValue(number);
             OnPropertyChanged(nameof(Sum));
-            Item = null;
+            SelectedItem = MyValues.Count - 1;
         }
 
         #endregion
