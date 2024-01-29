@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:b="clr-namespace:WPF_MVVM.Infrastructure.Behaviors">
     
     <Style x:Key="WPF_MVVM_WindowHeaderButtonStyle" TargetType="Button">
         <Setter Property="Focusable" Value="False"/>
@@ -54,11 +56,11 @@
                             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                                 <StackPanel.Resources>
                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource WPF_MVVM_WindowHeaderButtonStyle}"></Style>
-<Style TargetType="{x:Type Path}">
-    <Setter Property="StrokeThickness" Value="1"/>
-    <Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
-    <Setter Property="Margin" Value="10"></Setter>
-</Style>
+                                    <Style TargetType="{x:Type Path}">
+                                        <Setter Property="StrokeThickness" Value="2"/>
+                                        <Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+                                        <Setter Property="Margin" Value="10"></Setter>
+                                    </Style>
                                 </StackPanel.Resources>
                                 <Button>
                                     <Path Data="{StaticResource MinimizeButtonIconGeometry}"/>
@@ -66,8 +68,11 @@
                                 <Button>
                                      <Path Data="{StaticResource MaximizeButtonIconGeometry}"/>
                                 </Button>
-                                <Button>
+                                <Button  Foreground="Red">
                                     <Path Data="{StaticResource CloseButtonIconGeometry}"/>
+                                    <i:Interaction.Behaviors>
+                                        <b:CloseWindow/>
+                                    </i:Interaction.Behaviors>
                                 </Button>
                             </StackPanel>
                             <TextBlock Name="PART_Title" Text="{TemplateBinding Title}"
