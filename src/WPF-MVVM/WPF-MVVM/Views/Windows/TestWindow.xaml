@@ -8,6 +8,6 @@
         Style="{StaticResource WPF_MVVM_WindowStyle}"
         Title="TestWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,40" Padding="20,5">Hello World!</Button>
     </Grid>
 </Window>
