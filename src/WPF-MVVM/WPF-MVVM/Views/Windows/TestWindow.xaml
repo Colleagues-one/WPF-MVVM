@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WPF_MVVM.Views"
         mc:Ignorable="d"
         Style="{StaticResource WPF_MVVM_WindowStyle}"
-        Title="TestWindow" Height="450" Width="800">
+        Title="TestWindow" Height="450" Width="800"
+        Icon="../../Resources/G-RAV.ico">
     <Grid>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,40" Padding="20,5">Hello World!</Button>
     </Grid>
