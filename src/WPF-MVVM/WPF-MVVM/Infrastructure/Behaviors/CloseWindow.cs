@@ -23,23 +23,7 @@ namespace WPF_MVVM.Infrastructure.Behaviors
             AssociatedObject.Click -= OnClickButton;
         }
 
-        private void OnClickButton(object sender, RoutedEventArgs e)
-        {
-            var button = AssociatedObject;
-
-            var root = FindVisualRoot(button) as Window;
-            root?.Close();
-
-        }
-
-        private static DependencyObject FindVisualRoot(DependencyObject obj)
-        {
-            do
-            {
-                var parent = VisualTreeHelper.GetParent(obj);
-                if (parent is null) return obj;
-                obj = parent;
-            } while (true);
-        }
+        private void OnClickButton(object sender, RoutedEventArgs e) =>
+            (AssociatedObject.FindVisualRoot() as Window)?.Close();
     }
 }
