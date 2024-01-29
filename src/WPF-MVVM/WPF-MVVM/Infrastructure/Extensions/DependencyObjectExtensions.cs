@@ -18,6 +18,7 @@ namespace System.Windows
                 obj = parent;
             } while (true);
         }
+
         public static DependencyObject FindLogicalRoot(this DependencyObject obj)
         {
             do
@@ -26,6 +27,28 @@ namespace System.Windows
                 if (parent is null) return obj;
                 obj = parent;
             } while (true);
+        }
+
+        public static DependencyObject FindVisualParent<T>(this DependencyObject obj) where T : DependencyObject
+        {
+            if(obj is null) return null;
+            var target = obj;
+            do
+            {
+                target = VisualTreeHelper.GetParent(target);
+            } while (target != null && target is not T);
+            return target as T;
+        }
+
+        public static DependencyObject FindLogicalParent<T>(this DependencyObject obj) where T : DependencyObject
+        {
+            if (obj is null) return null;
+            var target = obj;
+            do
+            {
+                target = LogicalTreeHelper.GetParent(target);
+            } while (target != null && target is not T);
+            return target as T;
         }
     }
 }
