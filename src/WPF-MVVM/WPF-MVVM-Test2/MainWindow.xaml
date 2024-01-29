@@ -4,9 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM_Test2"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:B="clr-namespace:WPF_MVVM_Test2.Behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="250" Width="400">
     <Grid>
-
+        <Canvas>
+            <TextBlock Text="fjaof">
+                <i:Interaction.Behaviors>
+                    <!--<i:MouseDragElementBehavior/>-->
+                    <B:DragInCanvas/>
+                </i:Interaction.Behaviors>
+            </TextBlock>
+            <Ellipse Canvas.Bottom="30" Canvas.Left="20" StrokeThickness="2" Stroke="Red" Fill="BlueViolet" Width="30" Height="30">
+                <i:Interaction.Behaviors>
+                    <!--<i:MouseDragElementBehavior/>-->
+                    <B:DragInCanvas/>
+                </i:Interaction.Behaviors>
+            </Ellipse>
+           
+        </Canvas>
     </Grid>
 </Window>
