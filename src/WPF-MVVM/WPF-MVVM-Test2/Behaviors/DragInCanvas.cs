@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,58 @@ namespace WPF_MVVM_Test2.Behaviors
     {
         private Point _startPoint;
         private Canvas _canvas;
+
+        #region PositionX Dependency Property : double - Горизонтальное смещение
+
+        /// <summary>
+        /// Горизонтальное смещение Property Register
+        /// </summary>
+        public static readonly DependencyProperty PositionXProperty =
+            DependencyProperty.Register(
+                nameof(PositionX),
+                typeof(double),
+                typeof(DragInCanvas),
+                new PropertyMetadata(default(double)));
+
+
+        /// <summary>
+        /// Горизонтальное смещение Property 
+        /// </summary>
+        //[Category("")]
+        [Description("Горизонтальное смещение")]
+        public double PositionX
+        {
+            get => (double)GetValue(PositionXProperty);
+            set => SetValue(PositionXProperty, value);
+        }
+
+        #endregion
+
+        #region PositionY Dependency Property : double - Вертикальное смещение
+
+        /// <summary>
+        /// Вертикальное смещение Property Register
+        /// </summary>
+        public static readonly DependencyProperty PositionYProperty =
+            DependencyProperty.Register(
+                nameof(PositionY),
+                typeof(double),
+                typeof(DragInCanvas),
+                new PropertyMetadata(default(double)));
+
+
+        /// <summary>
+        /// Вертикальное смещение Property 
+        /// </summary>
+//[Category("")]
+        [Description("Вертикальное смещение")]
+        public double PositionY
+        {
+            get => (double)GetValue(PositionYProperty);
+            set => SetValue(PositionYProperty, value);
+        }
+
+        #endregion 
 
         protected override void OnAttached()
         {
@@ -56,6 +109,9 @@ namespace WPF_MVVM_Test2.Behaviors
 
             associatedObj.SetValue(Canvas.LeftProperty, delta.X);
             associatedObj.SetValue(Canvas.TopProperty, delta.Y);
+
+            PositionX = delta.X;
+            PositionY = delta.Y;
 
         }
     }

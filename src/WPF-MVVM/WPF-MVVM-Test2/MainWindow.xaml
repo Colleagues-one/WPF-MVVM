@@ -18,11 +18,17 @@
             </TextBlock>
             <Ellipse Canvas.Bottom="30" Canvas.Left="20" StrokeThickness="2" Stroke="Red" Fill="BlueViolet" Width="30" Height="30">
                 <i:Interaction.Behaviors>
-                    <!--<i:MouseDragElementBehavior/>-->
-                    <B:DragInCanvas/>
+                    <B:DragInCanvas x:Name ="EllipseDragBehavior"></B:DragInCanvas>
                 </i:Interaction.Behaviors>
             </Ellipse>
-           
+            <Button Width="20" Height="20" Canvas.Left="250" Canvas.Top="64">
+                <i:Interaction.Behaviors>
+                    <B:CloseWindow/>
+                </i:Interaction.Behaviors>
+            </Button>
+            <TextBlock Canvas.Left="40" Canvas.Top="30" Text="{Binding PositionX, ElementName=EllipseDragBehavior}"/>
+            <TextBlock Canvas.Left="40" Canvas.Top="50" Text="{Binding PositionY, ElementName=EllipseDragBehavior}"/>
+
         </Canvas>
     </Grid>
 </Window>
