@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace WPF_MVVM.Infrastructure.Behaviors.Window
+namespace WPF_MVVM.Infrastructure.Behaviors.Windows
 {
     internal class WindowTitleBarBehavior : Behavior<UIElement>
     {

@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Extensions;
 
-namespace WPF_MVVM.Infrastructure.Behaviors.Window
+namespace WPF_MVVM.Infrastructure.Behaviors.Windows
 {
     internal class WindowSystemIconBehavior : Behavior<Image>
     {

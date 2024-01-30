@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Xaml.Behaviors;
 
-namespace WPF_MVVM.Infrastructure.Behaviors.Window
+namespace WPF_MVVM.Infrastructure.Behaviors.Windows
 {
     internal class CloseWindow : Behavior<Button>
     {

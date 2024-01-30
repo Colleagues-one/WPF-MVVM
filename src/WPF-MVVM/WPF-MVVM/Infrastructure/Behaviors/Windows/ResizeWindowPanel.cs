@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 using Microsoft.Xaml.Behaviors;
 using WPF_MVVM.Infrastructure.Extensions;
 
-namespace WPF_MVVM.Infrastructure.Behaviors.Window
+namespace WPF_MVVM.Infrastructure.Behaviors.Windows
 {
     internal class ResizeWindowPanel : Behavior<Panel>
     {
