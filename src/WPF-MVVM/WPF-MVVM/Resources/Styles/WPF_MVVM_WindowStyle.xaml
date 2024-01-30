@@ -43,12 +43,19 @@
             <Border Name="PART_Border"
                     Margin="7"
                     BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"/>
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                <Border.Effect>
+                    <BlurEffect RenderingBias="{TemplateBinding BorderThickness}"></BlurEffect>
+                </Border.Effect>
+            </Border>
             <Grid x:Name="PART_MainGrid"
                   Margin="7"
                   Background="{TemplateBinding Background}"
                   TextOptions.TextRenderingMode="ClearType"
                   TextOptions.TextFormattingMode="Display">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" BlurRadius="7" ShadowDepth="4" Color="Purple"/>
+                </Grid.Effect>
                 <DockPanel>
                     <Grid Name="PART_TitleBar" DockPanel.Dock="Top" Background="WhiteSmoke">
                         <i:Interaction.Behaviors>
@@ -202,6 +209,7 @@
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="BorderThickness" Value="7"/>
+        <Setter Property="BorderBrush" Value="Blue"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>

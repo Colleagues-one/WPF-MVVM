@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 using Microsoft.Xaml.Behaviors;
 using WPF_MVVM.Infrastructure.Extensions;
 
-namespace WPF_MVVM.Infrastructure.Behaviors
+namespace WPF_MVVM.Infrastructure.Behaviors.Window
 {
     internal class ResizeWindowPanel : Behavior<Panel>
     {
@@ -54,16 +54,16 @@ namespace WPF_MVVM.Infrastructure.Behaviors
             switch (line.VerticalAlignment)
             {
                 case VerticalAlignment.Top:
-                    window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.North), IntPtr.Zero); break;
-                case VerticalAlignment.Bottom: 
-                    window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.South), IntPtr.Zero); break;
+                    window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.North), nint.Zero); break;
+                case VerticalAlignment.Bottom:
+                    window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.South), nint.Zero); break;
                 default:
                     switch (line.HorizontalAlignment)
                     {
                         case HorizontalAlignment.Left:
-                            window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.West), IntPtr.Zero); break;
+                            window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.West), nint.Zero); break;
                         case HorizontalAlignment.Right:
-                            window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.East), IntPtr.Zero); break;
+                            window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.East), nint.Zero); break;
                     }
                     break;
             }
@@ -77,16 +77,16 @@ namespace WPF_MVVM.Infrastructure.Behaviors
             switch (rect.VerticalAlignment)
             {
                 case VerticalAlignment.Top when rect.HorizontalAlignment == HorizontalAlignment.Left:
-                    window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.NorthWest), IntPtr.Zero); break;
+                    window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.NorthWest), nint.Zero); break;
                 case VerticalAlignment.Top when rect.HorizontalAlignment == HorizontalAlignment.Right:
-                    window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.NorthEast), IntPtr.Zero); break;
+                    window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.NorthEast), nint.Zero); break;
                 case VerticalAlignment.Bottom when rect.HorizontalAlignment == HorizontalAlignment.Left:
-                    window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.SouthWest), IntPtr.Zero); break;
+                    window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.SouthWest), nint.Zero); break;
                 case VerticalAlignment.Bottom when rect.HorizontalAlignment == HorizontalAlignment.Right:
-                    window.SendMessage(WM.SYSCOMMAND, (IntPtr)((int)SC.SIZE + SizingAction.SouthEast), IntPtr.Zero); break;
+                    window.SendMessage(WM.SYSCOMMAND, (nint)((int)SC.SIZE + SizingAction.SouthEast), nint.Zero); break;
             }
         }
     }
-    
-    
+
+
 }

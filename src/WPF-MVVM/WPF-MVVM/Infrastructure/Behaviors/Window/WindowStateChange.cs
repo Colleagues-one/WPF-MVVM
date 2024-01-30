@@ -1,15 +1,15 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Xaml.Behaviors;
 
-namespace WPF_MVVM.Infrastructure.Behaviors
+namespace WPF_MVVM.Infrastructure.Behaviors.Window
 {
-    internal class MinimizeWindow  : Behavior<Button>
+    internal class WindowStateChange : Behavior<Button>
     {
         protected override void OnAttached()
         {
@@ -24,7 +24,12 @@ namespace WPF_MVVM.Infrastructure.Behaviors
         private void OnClickButton(object sender, RoutedEventArgs e)
         {
             if (!(AssociatedObject.FindVisualRoot() is Window window)) return;
-            window.WindowState = WindowState.Minimized;
+            window.WindowState = window.WindowState switch
+            {
+                WindowState.Normal => WindowState.Maximized,
+                WindowState.Maximized => WindowState.Normal,
+                _ => window.WindowState
+            };
         }
     }
 }
