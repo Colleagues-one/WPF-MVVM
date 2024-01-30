@@ -15,16 +15,22 @@
         xmlns:converters="clr-namespace:WPF_MVVM.Infrastructure.Converters"
         xmlns:common="clr-namespace:WPF_MVVM.Infrastructure.Common"
         xmlns:components="clr-namespace:WPF_MVVM.Components"
+        xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
         Title="Анализ данных"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         
         Height="450" Width="800">
     <!--DataContext ="{viewModel:MainWindowViewModel}" без инверсии зависимостей-->
-    <!--через биндинг это инверсия зависимостей через локатор, сервисы прописаны в app.xaml.cs !!!!антипаттерн!! обращение напрямую к сервисам-->
+    <!--через биндинг это инверсия зависимостей через локатор, сервисы прописаны
+    в app.xaml.cs(уже нет, теперь есть класс рервисов и регистрации это норм)
+    !!!!антипаттерн!! обращение напрямую к сервисам-->
 
-
-
-
+    <behavior:Interaction.Triggers>
+        <behavior:EventTrigger EventName="Loaded">
+            <behavior:InvokeCommandAction Command="{Binding CountriesStatisticViewModel.RefreshDataCommand}"/>
+            
+        </behavior:EventTrigger>
+    </behavior:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -32,7 +38,7 @@
             </MenuItem>
             <MenuItem Header="Service" DataContext="{Binding WebServer}">
                 <MenuItem Header="Web-Server">
-                    <MenuItem Header="Enabled" IsCheckable="True" IsChecked="{Binding Enabled}"/>
+                    <MenuItem Header="Enabled" IsEnabled="False" IsCheckable="True" IsChecked="{Binding Enabled}"/>
                     <Separator/>
                     <MenuItem Header="On" Command="{Binding StartCommand}"/>
                     <MenuItem Header="Off" Command="{Binding StopCommand}"/>

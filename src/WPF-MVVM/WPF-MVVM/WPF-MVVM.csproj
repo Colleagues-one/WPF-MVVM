@@ -11,6 +11,10 @@
     
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\G-RAV.ico" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<Folder Include="Data\" />
 	</ItemGroup>
@@ -27,6 +31,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\WPF-MVVM.Web\WPF-MVVM.Web.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Resource Include="Resources\G-RAV.ico" />
 	</ItemGroup>
 
 

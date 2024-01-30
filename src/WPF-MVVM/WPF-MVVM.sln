@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF-MVVM-Test", "WPF-MVVM-T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF-MVVM.Web", "WPF-MVVM.Web\WPF-MVVM.Web.csproj", "{68E2B2B9-0790-4242-B323-DBD01603C780}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF-MVVM-Test2", "WPF-MVVM-Test2\WPF-MVVM-Test2.csproj", "{3D237C31-B89D-4DAB-9AAB-D99699CEBF2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{68E2B2B9-0790-4242-B323-DBD01603C780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E2B2B9-0790-4242-B323-DBD01603C780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68E2B2B9-0790-4242-B323-DBD01603C780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D237C31-B89D-4DAB-9AAB-D99699CEBF2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D237C31-B89D-4DAB-9AAB-D99699CEBF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D237C31-B89D-4DAB-9AAB-D99699CEBF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D237C31-B89D-4DAB-9AAB-D99699CEBF2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D19E13FF-5A93-44B0-9577-B0C042E11719} = {0BC5DDCB-6C0A-4BC2-B67F-11A5B3DCC214}
 		{37E8DD30-3595-4EF7-8000-988E49EA0F9F} = {0BC5DDCB-6C0A-4BC2-B67F-11A5B3DCC214}
+		{3D237C31-B89D-4DAB-9AAB-D99699CEBF2B} = {0BC5DDCB-6C0A-4BC2-B67F-11A5B3DCC214}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E98E9F6B-9CB2-4D52-9EFE-FF11B1C7E84F}

@@ -11,7 +11,7 @@
     </Window.DataContext>
     <DockPanel>
         <!-- Сумма -->
-        <TextBox DockPanel.Dock="Bottom" Text="{Binding Sum, Mode=OneWay}" Margin="5"/>
+        <TextBox DockPanel.Dock="Bottom" Text="{Binding Sum, Mode=OneWay}" IsReadOnly="True" Margin="5"/>
         <StackPanel  Margin="5" DockPanel.Dock="Right" Orientation="Vertical">
             <TextBox x:Name="TheNumber" Text="{Binding Item}" Margin="5"/>
             <Button Content="Add" Margin="5" Command="{Binding AddItemCommand}"  
