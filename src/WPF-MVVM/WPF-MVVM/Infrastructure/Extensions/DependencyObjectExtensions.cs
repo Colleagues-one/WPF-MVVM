@@ -29,7 +29,7 @@ namespace System.Windows
             } while (true);
         }
 
-        public static DependencyObject FindVisualParent<T>(this DependencyObject obj) where T : DependencyObject
+        public static T FindVisualParent<T>(this DependencyObject obj) where T : DependencyObject
         {
             if(obj is null) return null;
             var target = obj;
@@ -40,7 +40,7 @@ namespace System.Windows
             return target as T;
         }
 
-        public static DependencyObject FindLogicalParent<T>(this DependencyObject obj) where T : DependencyObject
+        public static T FindLogicalParent<T>(this DependencyObject obj) where T : DependencyObject
         {
             if (obj is null) return null;
             var target = obj;

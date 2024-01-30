@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System.Windows;
+using System.Windows.Input;
 
 namespace WPF_MVVM.Infrastructure.Behaviors
 {
@@ -10,13 +11,25 @@ namespace WPF_MVVM.Infrastructure.Behaviors
 
         protected override void OnAttached()
         {
-            _window = AssociatedObject as Window ?? AssociatedObject.Find;
+            _window = AssociatedObject as Window ?? AssociatedObject.FindLogicalParent<Window>();
+            AssociatedObject.MouseLeftButtonDown += OnMouseDown;
+
         }
+
 
         protected override void OnDetaching()
         {
+            AssociatedObject.MouseLeftButtonDown -= OnMouseDown;
+        }
+
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount > 1) return;
+            if (!(AssociatedObject.FindVisualRoot() is Window window)) return;
+            window?.DragMove();
 
         }
     }
-    
 }
+    
+

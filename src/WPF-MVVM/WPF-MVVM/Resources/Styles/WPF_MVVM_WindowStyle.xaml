@@ -51,6 +51,9 @@
                   TextOptions.TextFormattingMode="Display">
                 <DockPanel>
                     <Grid Name="PART_TitleBar" DockPanel.Dock="Top" Background="WhiteSmoke">
+                        <i:Interaction.Behaviors>
+                            <b:WindowTitleBarBehavior/>
+                        </i:Interaction.Behaviors>
                         <DockPanel Height="32">
                             <Image Name="PART_Icon" DockPanel.Dock="Left" Source="{TemplateBinding Icon}" />
                             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
@@ -63,22 +66,22 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button>
-                                    <Path Data="{StaticResource MinimizeButtonIconGeometry}"/>
                                     <i:Interaction.Behaviors>
                                         <b:MinimizeWindow/>
                                     </i:Interaction.Behaviors>
+                                    <Path Data="{StaticResource MinimizeButtonIconGeometry}"/>
                                 </Button>
                                 <Button>
-                                     <Path Data="{StaticResource MaximizeButtonIconGeometry}"/>
                                      <i:Interaction.Behaviors>
                                          <b:WindowStateChange/>
                                      </i:Interaction.Behaviors>
+                                     <Path Data="{StaticResource MaximizeButtonIconGeometry}"/>
                                 </Button>
                                 <Button  Foreground="Red">
-                                    <Path Data="{StaticResource CloseButtonIconGeometry}"/>
                                     <i:Interaction.Behaviors>
                                         <b:CloseWindow/>
                                     </i:Interaction.Behaviors>
+                                    <Path Data="{StaticResource CloseButtonIconGeometry}"/>
                                 </Button>
                             </StackPanel>
                             <TextBlock Name="PART_Title" Text="{TemplateBinding Title}"
