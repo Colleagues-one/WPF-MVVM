@@ -54,6 +54,24 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
+        #region SelectedStudent : Student - Выбранный студент
+
+        /// <summary>
+        /// field Выбранный студент
+        /// </summary>
+        private Student _SelectedStudent;
+
+        /// <summary>
+        ///  attribute Выбранный студент
+        /// </summary>
+        public Student SelectedStudent
+        {
+            get => _SelectedStudent;
+            set => Set(ref _SelectedStudent, value);
+        }
+
+        #endregion
+
         public StudentsManagementViewModel(StudentsManager studentsManager) =>
             _StudentsManager = studentsManager;
     }

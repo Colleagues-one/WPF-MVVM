@@ -18,7 +18,7 @@ namespace WPF_MVVM.Services.Students
             destination.Surname = source.Surname;
             destination.Patronymic = source.Patronymic;
             destination.Birthday = source.Birthday;
-            //destination.Description = source.Description;
+            destination.Description = source.Description;
             destination.Rating = source.Rating;
         }
     }

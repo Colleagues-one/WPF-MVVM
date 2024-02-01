@@ -31,7 +31,8 @@ namespace WPF_MVVM.Services.Students
                         Surname = $"Surname{index}",
                         Patronymic = $"Patronymic{index++}",
                         Birthday = DateTime.Now.Subtract(TimeSpan.FromDays(300 * rnd.Next(19,30))),
-                        Rating = rnd.NextDouble() * 100
+                        Rating = rnd.NextDouble() * 100,
+                        Description = $"It is a student"
                     });
                 }
             }
