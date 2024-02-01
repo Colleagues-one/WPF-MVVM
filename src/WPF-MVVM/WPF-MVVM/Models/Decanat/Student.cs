@@ -17,12 +17,4 @@ namespace WPF_MVVM.Models.Decanat
         public double Rating { get; set; }
         public string Description { get; set; }
     }
-
-    internal class Group : IEntity
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public IList<Student> Students { get; set; }
-        public string Description { get; set; }
-    }
 }

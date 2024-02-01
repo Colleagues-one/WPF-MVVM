@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using WPF_MVVM.Services.Interfaces;
+using WPF_MVVM.Services.Students;
 
 namespace WPF_MVVM.Services
 {
@@ -17,6 +18,7 @@ namespace WPF_MVVM.Services
             services.AddTransient<IWebServerService, HttpListenerWebServer>();
             services.AddSingleton<StudentsRepository>();
             services.AddSingleton<GroupsRepository>();
+            services.AddSingleton<StudentsManager>();
             //services.AddTransient<IDataService, DataService>(); создается когда требуется
 
             /* services.AddScoped<IDataService, DataService>(); создание области для обработки сервиса
