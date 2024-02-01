@@ -16,8 +16,8 @@ namespace WPF_MVVM.Services
             services.AddSingleton<IDataService, DataService>();
             services.AddTransient<IAsyncDataService, AsyncDataService>();
             services.AddTransient<IWebServerService, HttpListenerWebServer>();
-            services.AddSingleton<StudentsRepository>();
             services.AddSingleton<GroupsRepository>();
+            services.AddSingleton<StudentsRepository>();
             services.AddSingleton<StudentsManager>();
             //services.AddTransient<IDataService, DataService>(); создается когда требуется
 

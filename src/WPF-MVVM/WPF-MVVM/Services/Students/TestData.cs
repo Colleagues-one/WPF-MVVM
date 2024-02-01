@@ -14,7 +14,8 @@ namespace WPF_MVVM.Services.Students
             .Range(1, 10)
             .Select(i => new Group { Name = $"Group {i}" })
             .ToArray();
-        public static Student[] Students { get;} = CreateStudents(Groups);
+
+        public static Student[] Students { get; } = CreateStudents(Groups);
 
         private static Student[] CreateStudents(Group[] groups)
         {
@@ -26,11 +27,11 @@ namespace WPF_MVVM.Services.Students
                 {
                     group.Students.Add(new Student
                     {
-                        Name = $"Name {index}",
-                        Surname = $"Surname {index}",
-                        Patronymic = $"Patronymic {index++}",
-                        Birthday = DateTime.Now.Subtract(TimeSpan.FromDays(300 * rnd.Next())),
-                        Rating = rnd.Next() * 100
+                        Name = $"Name{index}",
+                        Surname = $"Surname{index}",
+                        Patronymic = $"Patronymic{index++}",
+                        Birthday = DateTime.Now.Subtract(TimeSpan.FromDays(300 * rnd.Next(19,30))),
+                        Rating = rnd.NextDouble() * 100
                     });
                 }
             }
@@ -38,3 +39,4 @@ namespace WPF_MVVM.Services.Students
             return groups.SelectMany(g => g.Students).ToArray();
         }
     }
+}

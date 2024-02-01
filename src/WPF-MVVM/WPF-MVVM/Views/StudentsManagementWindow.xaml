@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="clr-namespace:WPF_MVVM.Models.Decanat"
         xmlns:local="clr-namespace:WPF_MVVM.Views"
         DataContext="{Binding StudentsManagement, Source={StaticResource VMLocator}}"
         mc:Ignorable="d"
@@ -14,10 +15,44 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="Groups">
-            <ListBox/>
+            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" SelectedIndex="0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="m:Group">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding Students.Count, StringFormat=({0})}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="Students">
-            <ListBox/>
+            <ListBox ItemsSource="{Binding SelectedGroup.Students}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="m:Student">
+                        <TextBlock>
+                            <TextBlock.ToolTip>
+                                <TextBlock>
+                                    Mark: <TextBlock Text="{Binding Rating}"/>
+                                </TextBlock>
+                            </TextBlock.ToolTip>
+                            <TextBlock Text="{Binding Surname}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Patronymic}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="Information"></GroupBox>
         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>

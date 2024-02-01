@@ -10,6 +10,6 @@ internal class GroupsRepository : RepositoryInMemory<Group>
     {
         destination.Name = source.Name;
         destination.Description = source.Description;
-        destination.Students = source.Students;
+        //destination.Students = source.Students;
     }
 }

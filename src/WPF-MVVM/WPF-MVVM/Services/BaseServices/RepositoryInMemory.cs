@@ -12,13 +12,13 @@ namespace WPF_MVVM.Services.BaseServices
     {
         private List<T> _items = new List<T>();
 
-        private int _lastId = 0;
+        private int _lastId;
 
         protected RepositoryInMemory(){}
 
         protected RepositoryInMemory(IEnumerable<T> items)
         {
-            foreach (var item in _items) _items.Add(item);
+            foreach (var item in items) _items.Add(item);
         }
 
         public void Add(T item)
