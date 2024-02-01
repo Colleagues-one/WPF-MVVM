@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:m="clr-namespace:WPF_MVVM.Models.Decanat"
         xmlns:local="clr-namespace:WPF_MVVM.Views"
         DataContext="{Binding StudentsManagement, Source={StaticResource VMLocator}}"
@@ -32,27 +33,34 @@
             </ListBox>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="Students">
-            <ListBox ItemsSource="{Binding SelectedGroup.Students}">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="m:Student">
-                        <TextBlock>
-                            <TextBlock.ToolTip>
-                                <TextBlock>
-                                    Mark: <TextBlock Text="{Binding Rating}"/>
-                                </TextBlock>
-                            </TextBlock.ToolTip>
-                            <TextBlock Text="{Binding Surname}"/>
-                            <TextBlock Text="{Binding Name}"/>
-                            <TextBlock Text="{Binding Patronymic}"/>
-                        </TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+           <DockPanel>
+               <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                   <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Margin="0,2,1,2"/>
+                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="Yellow" Margin="0,2,0,2"/>
+                    <Button fa:Awesome.Content="Solid_WindowClose" Foreground="Red" Margin="1,2,0,2"/>
+               </UniformGrid>
+               <ListBox ItemsSource="{Binding SelectedGroup.Students}">
+                   <ListBox.ItemContainerStyle>
+                       <Style TargetType="ListBoxItem">
+                           <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                       </Style>
+                   </ListBox.ItemContainerStyle>
+                   <ListBox.ItemTemplate>
+                       <DataTemplate DataType="m:Student">
+                           <TextBlock>
+                               <TextBlock.ToolTip>
+                                   <TextBlock>
+                                       Mark: <TextBlock Text="{Binding Rating}"/>
+                                   </TextBlock>
+                               </TextBlock.ToolTip>
+                               <TextBlock Text="{Binding Surname}"/>
+                               <TextBlock Text="{Binding Name}"/>
+                               <TextBlock Text="{Binding Patronymic}"/>
+                           </TextBlock>
+                       </DataTemplate>
+                   </ListBox.ItemTemplate>
+               </ListBox>
+            </DockPanel>
         </GroupBox>
         <GroupBox Grid.Column="2" Header="Information"></GroupBox>
         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/>

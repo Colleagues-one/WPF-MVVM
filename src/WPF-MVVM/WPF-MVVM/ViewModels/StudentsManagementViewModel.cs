@@ -54,9 +54,7 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
-        public StudentsManagementViewModel(StudentsManager studentsManager)
-        {
+        public StudentsManagementViewModel(StudentsManager studentsManager) =>
             _StudentsManager = studentsManager;
-        }
     }
 }
