@@ -43,6 +43,12 @@
                     <MenuItem Header="On" Command="{Binding StartCommand}"/>
                     <MenuItem Header="Off" Command="{Binding StopCommand}"/>
                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="Students Management">
+                    <MenuItem.Command>
+                        <cmd:ManageStudentsCommand/>
+                    </MenuItem.Command>
+                </MenuItem>
             </MenuItem>
             <MenuItem Name="MenuHelp" Header="Help">
                 <MenuItem Name="MenuHelpAbout" Header="About"></MenuItem>
