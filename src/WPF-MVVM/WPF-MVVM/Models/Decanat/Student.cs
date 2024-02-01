@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF_MVVM.Models.Interfaces;
 
 namespace WPF_MVVM.Models.Decanat
 {
-    class Student
+    class Student : IEntity
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
@@ -16,8 +18,9 @@ namespace WPF_MVVM.Models.Decanat
         public string Description { get; set; }
     }
 
-    internal class Group
+    internal class Group : IEntity
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public IList<Student> Students { get; set; }
         public string Description { get; set; }

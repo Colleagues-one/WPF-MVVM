@@ -90,7 +90,7 @@
                                 </Button>
                                 <Button  Foreground="Red">
                                     <i:Interaction.Behaviors>
-                                        <b:CloseWindow/>
+                                        <b:CloseWindowBehavior/>
                                     </i:Interaction.Behaviors>
                                     <Path Data="{StaticResource CloseButtonIconGeometry}"/>
                                 </Button>
