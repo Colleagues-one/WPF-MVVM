@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models.Decanat;
 using WPF_MVVM.Services.Students;
 using WPF_MVVM.ViewModels.Base;
@@ -71,6 +74,50 @@ namespace WPF_MVVM.ViewModels
         }
 
         #endregion
+
+
+        #region Commands
+
+        #region ICommand EditStudent (object) - Редактирование студента
+
+        private ICommand _EditStudentCommand;
+        /// <summary>
+        /// Редактирование студента
+        /// </summary>
+        public ICommand EditStudentCommand =>
+            _EditStudentCommand ??= new RelayCommand(OnEditStudentCommandExecuted, CanEditStudentCommandExecute);
+
+        private static bool CanEditStudentCommandExecute(object parameter) => parameter is Student;
+
+        private void OnEditStudentCommandExecuted(object parameter)
+        {   
+            var student = (Student)parameter;
+
+        }
+
+        #endregion
+
+        #region ICommand AddStudent (object) - Добавление студента
+
+        private ICommand _AddStudentCommand;
+
+        /// <summary>
+        /// Добавление студента
+        /// </summary>
+        public ICommand AddStudentCommand =>
+            _AddStudentCommand ??= new RelayCommand(OnAddStudentCommandExecuted, CanAddStudentCommandExecute);
+
+        private static bool CanAddStudentCommandExecute(object parameter) => parameter is Group;
+
+        private void OnAddStudentCommandExecuted(object parameter)
+        {
+            var group = (Group)parameter;
+        }
+
+        #endregion
+
+        #endregion
+
 
         public StudentsManagementViewModel(StudentsManager studentsManager) =>
             _StudentsManager = studentsManager;
