@@ -5,6 +5,7 @@ namespace WPF_MVVM.Services.Students;
 
 internal class GroupsRepository : RepositoryInMemory<Group>
 {
+    public GroupsRepository() : base(TestData.Groups) { }
     protected override void Update(Group source, Group destination)
     {
         destination.Name = source.Name;

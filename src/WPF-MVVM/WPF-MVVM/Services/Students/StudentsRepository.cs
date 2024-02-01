@@ -10,6 +10,8 @@ namespace WPF_MVVM.Services.Students
 {
     internal class StudentsRepository : RepositoryInMemory<Student>
     {
+        public StudentsRepository() : base(TestData.Students) { }
+
         protected override void Update(Student source, Student destination)
         {
             destination.Name = source.Name;
