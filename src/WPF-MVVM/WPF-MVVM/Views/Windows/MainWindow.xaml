@@ -17,7 +17,7 @@
         xmlns:components="clr-namespace:WPF_MVVM.Components"
         xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
         Title="Анализ данных"
-        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
+        DataContext="{Binding MainWindowModel, Source={StaticResource VMLocator}}"
         
         Height="450" Width="800">
     <!--DataContext ="{viewModel:MainWindowViewModel}" без инверсии зависимостей-->
@@ -42,6 +42,12 @@
                     <Separator/>
                     <MenuItem Header="On" Command="{Binding StartCommand}"/>
                     <MenuItem Header="Off" Command="{Binding StopCommand}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Students Management">
+                    <MenuItem.Command>
+                        <cmd:ManageStudentsCommand/>
+                    </MenuItem.Command>
                 </MenuItem>
             </MenuItem>
             <MenuItem Name="MenuHelp" Header="Help">

@@ -10,7 +10,7 @@ using Microsoft.Xaml.Behaviors;
 
 namespace WPF_MVVM.Infrastructure.Behaviors.Windows
 {
-    internal class CloseWindow : Behavior<Button>
+    internal class CloseWindowBehavior : Behavior<Button>
     {
         protected override void OnAttached()
         {
