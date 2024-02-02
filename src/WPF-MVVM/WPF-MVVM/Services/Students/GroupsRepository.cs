@@ -12,4 +12,8 @@ internal class GroupsRepository : RepositoryInMemory<Group>
         destination.Description = source.Description;
         destination.Students = source.Students;
     }
+
+    public Group Get(int id) => GetAll().FirstOrDefault(x => x.Id == id);
+
+    public Group Get(string name) => GetAll().FirstOrDefault(x => x.Name == name);
 }

@@ -10,7 +10,7 @@ namespace WPF_MVVM.Services.BaseServices
 {
     internal abstract class RepositoryInMemory<T> : IRepository<T> where T : IEntity
     {
-        private List<T> _items = new List<T>();
+        private readonly List<T> _items = new List<T>();
 
         private int _lastId;
 
@@ -18,7 +18,7 @@ namespace WPF_MVVM.Services.BaseServices
 
         protected RepositoryInMemory(IEnumerable<T> items)
         {
-            foreach (var item in items) _items.Add(item);
+            foreach (var item in items) Add(item);
         }
 
         public void Add(T item)

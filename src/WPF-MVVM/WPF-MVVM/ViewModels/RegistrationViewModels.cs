@@ -14,7 +14,7 @@ namespace WPF_MVVM.ViewModels
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
             services.AddSingleton<WebServerViewModel>();
-            services.AddTransient<StudentsManagementViewModel>();
+            services.AddSingleton<StudentsManagementViewModel>();
             return services;
         }
     }

@@ -20,5 +20,22 @@ namespace WPF_MVVM.Services.Students
             _students = students;
             _groups = groups;
         }
+
+        public void Update(Student student) => _students.Update(student.Id, student);
+
+        public bool Add(Student student, int groupId)
+        {
+            if(student is null) throw new ArgumentNullException(nameof(student));
+            if(groupId <=0) throw new ArgumentOutOfRangeException(nameof(groupId));
+
+            var group = _groups.Get(groupId);
+            if (group == null)
+            {
+                group = new Group() { Id = groupId, Name = $"New Group{groupId}", };
+            }
+            group.Students.Add(student);
+            _students.Add(student);
+            return true;
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models.Decanat;
+using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.Services.Students;
 using WPF_MVVM.ViewModels.Base;
 using WPF_MVVM.Views;
@@ -17,6 +18,9 @@ namespace WPF_MVVM.ViewModels
     internal class StudentsManagementViewModel : BaseViewModel
     {
         private readonly StudentsManager _StudentsManager;
+
+        private readonly IUserDialogService _userDialogService;
+
 
 
         public IEnumerable<Student> Students => _StudentsManager.Students;
@@ -94,20 +98,13 @@ namespace WPF_MVVM.ViewModels
         private static bool CanEditStudentCommandExecute(object parameter) => parameter is Student;
 
         private void OnEditStudentCommandExecuted(object parameter)
-        {   
-            var student = (Student)parameter;
-
-            var dlg = new StudentEditorWindow()
+        {
+            if (_userDialogService.Edit(parameter))
             {
-                FirstName = student.Name,
-                LastName = student.Surname,
-                Patronymic = student.Patronymic,
-                Birthday = student.Birthday,
-                Rating = student.Rating,
-                Description = student.Description
-            };
-            if (dlg.ShowDialog() == true) MessageBox.Show("Editing complete!");
-            else MessageBox.Show("Editing incomplete!");
+                _StudentsManager.Update((Student)parameter);
+                _userDialogService.ShowInformation("Student has been updated", "Success!");
+            }
+            else _userDialogService.ShowWarning("Student has not been updated", "Editing failure!");
 
         }
 
@@ -130,16 +127,29 @@ namespace WPF_MVVM.ViewModels
         private void OnAddStudentCommandExecuted(object parameter)
         {
             var group = (Group)parameter;
+            var student = new Student();
+            if (!_userDialogService.Edit(student) || _StudentsManager.Add(student, group.Id))
+            {
+                OnPropertyChanged(nameof(Students));
+                OnPropertyChanged(nameof(Groups));
+                return;
+            }
+            if (_userDialogService.Confirm("Student not created, do you want to repeat?", "Failed!"))
+                OnAddStudentCommandExecuted(parameter);
+
+
         }
 
-        #endregion
 
         #endregion
 
+        #endregion
 
-        public StudentsManagementViewModel(StudentsManager studentsManager)
+
+        public StudentsManagementViewModel(StudentsManager studentsManager, IUserDialogService userDialogService)
         {
             _StudentsManager = studentsManager;
+            _userDialogService = userDialogService;
         }
     }
 }

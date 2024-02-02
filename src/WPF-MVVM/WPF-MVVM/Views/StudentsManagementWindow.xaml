@@ -16,7 +16,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Column="0" Header="Groups">
-            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" SelectedIndex="0">
+            <ListBox ItemsSource="{Binding Groups}"
+                     SelectedItem="{Binding SelectedGroup}" SelectedIndex="0">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -35,10 +36,13 @@
         <GroupBox Grid.Column="1" Header="Students">
            <DockPanel>
                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-                   <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Margin="0,2,1,0"/>
-                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="Yellow" Margin="0,2,0,0"
-                            Command="{Binding EditStudentCommand}"
-                            CommandParameter="{Binding SelectedStudent}"/>
+                   <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Margin="0,2,1,0"
+                           Command="{Binding AddStudentCommand}"
+                           CommandParameter="{Binding SelectedGroup}">
+                   </Button>
+                   <Button fa:Awesome.Content="Solid_UserEdit" Foreground="Yellow" Margin="0,2,0,0"
+                           Command="{Binding EditStudentCommand}" 
+                           CommandParameter="{Binding SelectedStudent}"/>
                     <Button fa:Awesome.Content="Solid_WindowClose" Foreground="Red" Margin="1,2,0,0"/>
                </UniformGrid>
                <ListBox ItemsSource="{Binding SelectedGroup.Students}"
