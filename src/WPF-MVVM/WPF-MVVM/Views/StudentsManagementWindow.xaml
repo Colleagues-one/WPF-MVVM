@@ -36,7 +36,9 @@
            <DockPanel>
                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
                    <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Margin="0,2,1,0"/>
-                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="Yellow" Margin="0,2,0,0"/>
+                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="Yellow" Margin="0,2,0,0"
+                            Command="{Binding EditStudentCommand}"
+                            CommandParameter="{Binding SelectedStudent}"/>
                     <Button fa:Awesome.Content="Solid_WindowClose" Foreground="Red" Margin="1,2,0,0"/>
                </UniformGrid>
                <ListBox ItemsSource="{Binding SelectedGroup.Students}"

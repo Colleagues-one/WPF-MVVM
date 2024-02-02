@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using WPF_MVVM.Models.Decanat;
 
 namespace WPF_MVVM.ViewModels
 {

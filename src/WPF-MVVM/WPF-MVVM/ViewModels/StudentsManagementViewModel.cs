@@ -4,11 +4,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models.Decanat;
 using WPF_MVVM.Services.Students;
 using WPF_MVVM.ViewModels.Base;
+using WPF_MVVM.Views;
 
 namespace WPF_MVVM.ViewModels
 {
@@ -16,9 +18,11 @@ namespace WPF_MVVM.ViewModels
     {
         private readonly StudentsManager _StudentsManager;
 
+
         public IEnumerable<Student> Students => _StudentsManager.Students;
         public IEnumerable<Group> Groups => _StudentsManager.Groups;
 
+    
 
 
         #region Title : string - заголовок окна
@@ -93,7 +97,21 @@ namespace WPF_MVVM.ViewModels
         {   
             var student = (Student)parameter;
 
+            var dlg = new StudentEditorWindow()
+            {
+                FirstName = student.Name,
+                LastName = student.Surname,
+                Patronymic = student.Patronymic,
+                Birthday = student.Birthday,
+                Rating = student.Rating,
+                Description = student.Description
+            };
+            if (dlg.ShowDialog() == true) MessageBox.Show("Editing complete!");
+            else MessageBox.Show("Editing incomplete!");
+
         }
+
+       
 
         #endregion
 
@@ -119,7 +137,9 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
 
-        public StudentsManagementViewModel(StudentsManager studentsManager) =>
+        public StudentsManagementViewModel(StudentsManager studentsManager)
+        {
             _StudentsManager = studentsManager;
+        }
     }
 }
